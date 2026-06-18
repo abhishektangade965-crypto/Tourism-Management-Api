@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html class="scroll-smooth light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>About Us | Tourism Hub</title>
+    <script>
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="js/tailwind-config.js"></script>
+    <style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.3);
+        }
+        .dark .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .text-gradient {
+            background: linear-gradient(to right, #38bdf8, #22c55e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .btn-primary {
+            background: linear-gradient(to right, #38bdf8, #22c55e);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-primary:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px -5px rgba(56, 189, 248, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary/20 dark:bg-slate-950 dark:text-slate-100 flex flex-col min-h-screen">
+    <!-- TopNavBar -->
+    <header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-lg py-md max-w-container-max mx-auto bg-surface/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-outline-variant/20 shadow-sm">
+        <a href="index.html" class="flex items-center gap-md">
+            <span class="font-display-xl text-display-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-ocean-gradient-start to-ocean-gradient-end">Tourism Hub</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-lg">
+            <a class="font-label-caps text-label-caps text-on-surface-variant dark:text-slate-300 hover:text-primary transition-colors duration-200" href="index.html">Destinations</a>
+            <a class="font-label-caps text-label-caps text-on-surface-variant dark:text-slate-300 hover:text-primary transition-colors duration-200" href="packages.html">Tour Packages</a>
+            <a class="font-label-caps text-label-caps text-on-surface-variant dark:text-slate-300 hover:text-primary transition-colors duration-200" href="dashboard.html">Bookings</a>
+        </nav>
+        <div class="flex items-center gap-md" id="auth-buttons-container">
+            <!-- Dynamic auth links injected by app.js -->
+        </div>
+    </header>
+
+    <main class="flex-grow pt-24">
+        <!-- Hero Section -->
+        <section class="relative py-20 overflow-hidden bg-slate-900 text-white">
+            <div class="absolute inset-0 z-0 opacity-40">
+                <img class="w-full h-full object-cover" alt="Scenic mountains" src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&auto=format&fit=crop&q=80"/>
+                <div class="absolute inset-0 bg-gradient-to-b from-slate-950/60 to-slate-950"></div>
+            </div>
+            <div class="relative z-10 container mx-auto px-lg text-center max-w-4xl">
+                <h1 class="font-display-xl text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-emerald-400">Our Journey & Mission</h1>
+                <p class="text-xl text-slate-300 mb-8 leading-relaxed">Redefining global travel logistics by providing premium, personalized experiences powered by smart automation.</p>
+                <div class="inline-flex gap-4">
+                    <a href="packages.html" class="btn-primary px-xl py-md rounded-xl text-white font-bold shadow-lg">Explore Our Packages</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="py-12 bg-surface-container-low dark:bg-slate-900 border-y border-outline-variant/10">
+            <div class="max-w-container-max mx-auto px-lg">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-lg">
+                    <div class="glass-panel text-center p-lg rounded-2xl shadow-sm">
+                        <div class="font-display-xl text-4xl font-extrabold text-primary dark:text-sky-400 mb-xs">50,000+</div>
+                        <div class="font-label-caps text-xs text-text-muted dark:text-slate-400">Happy Travelers</div>
+                    </div>
+                    <div class="glass-panel text-center p-lg rounded-2xl shadow-sm">
+                        <div class="font-display-xl text-4xl font-extrabold text-secondary dark:text-emerald-400 mb-xs">120+</div>
+                        <div class="font-label-caps text-xs text-text-muted dark:text-slate-400">Countries Visited</div>
+                    </div>
+                    <div class="glass-panel text-center p-lg rounded-2xl shadow-sm">
+                        <div class="font-display-xl text-4xl font-extrabold text-primary dark:text-sky-400 mb-xs">500+</div>
+                        <div class="font-label-caps text-xs text-text-muted dark:text-slate-400">Luxury Packages</div>
+                    </div>
+                    <div class="glass-panel text-center p-lg rounded-2xl shadow-sm">
+                        <div class="font-display-xl text-4xl font-extrabold text-secondary dark:text-emerald-400 mb-xs">4.9</div>
+                        <div class="font-label-caps text-xs text-text-muted dark:text-slate-400">Average Rating</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vision and Mission Section -->
+        <section class="py-20 bg-surface dark:bg-slate-950">
+            <div class="max-w-container-max mx-auto px-lg">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <span class="text-sm font-bold text-primary dark:text-sky-400 uppercase tracking-widest block mb-2">Our Mission</span>
+                        <h2 class="font-headline-lg text-3xl font-bold mb-4 text-on-surface dark:text-white">Seamless Journeys, Lifelong Memories</h2>
+                        <p class="text-text-muted dark:text-slate-300 mb-6 leading-relaxed">
+                            At Tourism Hub, we believe that travel has the power to transform lives. Our mission is to eliminate the friction from trip planning, offering curate luxury packages and a secure booking system that lets travelers focus on what truly matters: making unforgettable connections with the world.
+                        </p>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-4">
+                                <span class="material-symbols-outlined text-primary dark:text-sky-400 p-2 bg-primary/10 rounded-lg">verified</span>
+                                <div>
+                                    <h4 class="font-bold text-on-surface dark:text-white">Guaranteed Quality</h4>
+                                    <p class="text-sm text-text-muted dark:text-slate-400">Every resort, airline, and guide is strictly vetted for premium standards.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <span class="material-symbols-outlined text-secondary dark:text-emerald-400 p-2 bg-secondary/10 rounded-lg">spa</span>
+                                <div>
+                                    <h4 class="font-bold text-on-surface dark:text-white">Eco-Conscious Travel</h4>
+                                    <p class="text-sm text-text-muted dark:text-slate-400">We prioritize and support green resorts and carbon-offsetting initiatives.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative rounded-3xl overflow-hidden shadow-2xl h-96">
+                        <img class="w-full h-full object-cover" alt="Travelers looking at map" src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&auto=format&fit=crop&q=80"/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vision and Values Section -->
+        <section class="py-20 bg-surface-container-lowest dark:bg-slate-900">
+            <div class="max-w-container-max mx-auto px-lg">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-sm font-bold text-primary dark:text-sky-400 uppercase tracking-widest block mb-2">Our Vision</span>
+                    <h2 class="font-headline-lg text-4xl font-bold text-on-surface dark:text-white">Innovating the Future of Modern Tourism</h2>
+                    <p class="text-text-muted dark:text-slate-300 mt-4">We envision a world where luxury travel is fully integrated, smart, and accessible to global adventurers.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="glass-panel p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+                        <div class="w-12 h-12 bg-sky-500/10 text-sky-500 dark:text-sky-400 rounded-xl flex items-center justify-center mb-6">
+                            <span class="material-symbols-outlined text-2xl">insights</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-on-surface dark:text-white mb-3">Intelligent Logistics</h3>
+                        <p class="text-sm text-text-muted dark:text-slate-400 leading-relaxed">Utilizing real-time algorithms to synchronize booking statuses, cancel fees, and hotel vacancies smoothly.</p>
+                    </div>
+                    <div class="glass-panel p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+                        <div class="w-12 h-12 bg-emerald-500/10 text-emerald-500 dark:text-emerald-400 rounded-xl flex items-center justify-center mb-6">
+                            <span class="material-symbols-outlined text-2xl">shield</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-on-surface dark:text-white mb-3">Trust & Security</h3>
+                        <p class="text-sm text-text-muted dark:text-slate-400 leading-relaxed">Ensuring complete transactions through BCrypt hashing, JWT user authentication, and secure HTTPS channels.</p>
+                    </div>
+                    <div class="glass-panel p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+                        <div class="w-12 h-12 bg-amber-500/10 text-amber-500 dark:text-amber-400 rounded-xl flex items-center justify-center mb-6">
+                            <span class="material-symbols-outlined text-2xl">language</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-on-surface dark:text-white mb-3">Global Community</h3>
+                        <p class="text-sm text-text-muted dark:text-slate-400 leading-relaxed">Providing local guides and cultural immersion excursions that respect local ecosystems and populations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full py-xl px-lg mt-auto flex flex-col items-center gap-md bg-deep-navy dark:bg-black text-white">
+        <div class="max-w-container-max w-full flex flex-col md:flex-row justify-between items-start md:items-center gap-xl border-b border-white/10 pb-xl mb-xl">
+            <div class="flex flex-col gap-sm">
+                <span class="font-display-xl text-display-xl font-bold text-white">Tourism Hub</span>
+                <p class="text-outline-variant font-body-sm text-body-sm max-w-xs">Global tourism management platform redefining the luxury travel experience through intelligent logistics.</p>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-xl">
+                <div class="flex flex-col gap-md">
+                    <h5 class="text-white font-bold font-label-caps text-label-caps">Company</h5>
+                    <a class="text-outline-variant hover:text-ocean-gradient-start transition-colors font-body-sm text-body-sm" href="about.html">About Us</a>
+                    <a class="text-outline-variant hover:text-ocean-gradient-start transition-colors font-body-sm text-body-sm" href="contact.html">Contact</a>
+                </div>
+                <div class="flex flex-col gap-md">
+                    <h5 class="text-white font-bold font-label-caps text-label-caps">Support</h5>
+                    <a class="text-outline-variant hover:text-ocean-gradient-start transition-colors font-body-sm text-body-sm" href="contact.html#faq">FAQ</a>
+                    <a class="text-outline-variant hover:text-ocean-gradient-start transition-colors font-body-sm text-body-sm" href="contact.html">Support</a>
+                    <a class="text-outline-variant hover:text-ocean-gradient-start transition-colors font-body-sm text-body-sm" href="terms.html#cancellation">Cancellation Policy</a>
+                </div>
+                <div class="flex flex-col gap-md">
+                    <h5 class="text-white font-bold font-label-caps text-label-caps">Legal</h5>
+                    <a class="text-outline-variant hover:text-ocean-gradient-start transition-colors font-body-sm text-body-sm" href="terms.html">Terms of Service</a>
+                    <a class="text-outline-variant hover:text-ocean-gradient-start transition-colors font-body-sm text-body-sm" href="privacy.html">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+        <div class="w-full text-center">
+            <p class="text-outline-variant font-body-sm text-body-sm">© 2026 Tourism Hub SaaS. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="js/app.js"></script>
+</body>
+</html>

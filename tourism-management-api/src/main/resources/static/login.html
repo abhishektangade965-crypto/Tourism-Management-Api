@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tourism Hub | Premium Authentication</title>
+<script>
+    (function() {
+        const theme = localStorage.getItem('theme') || 'light';
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+        } else {
+            document.documentElement.classList.add('light');
+            document.documentElement.classList.remove('dark');
+        }
+    })();
+</script>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Plus+Jakarta+Sans:wght@600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .auth-transition {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .role-card:has(input:checked) {
+            border-color: #00668a;
+            background-color: rgba(56, 189, 248, 0.1);
+        }
+        .submitted input:invalid {
+            border-color: #ba1a1a !important;
+            background-color: #ffdad6 !important;
+        }
+    </style>
+<script src="js/tailwind-config.js"></script>
+</head>
+<body class="bg-surface-container font-body-md text-on-surface overflow-x-hidden min-h-screen flex flex-col">
+<!-- Background Hero with WebGL-like atmospheric feel -->
+<div class="fixed inset-0 z-0">
+<div class="absolute inset-0 bg-black/20 z-10 backdrop-blur-[2px]" aria-hidden="true"></div>
+<img class="w-full h-full object-cover" alt="A cinematic, wide-angle landscape of a misty, ethereal mountain range at sunrise with soft golden light filtering through low-hanging clouds. The color palette is dominated by tranquil sky blues and luxury greens, reflecting a premium tourism aesthetic. The composition is expansive, suggesting global travel and exploration." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvROoyz1Tuez42E45D_GhwaO-KmWG5JJCa25rgI3PajIyfav1_bPMh8k9ksL8KBTKWVzDjynSZUVD90igkrOy0EC7g9JJifHDFyaNJATM70lTxg8MraFobxXknhc-zXEb1u9GxLTvC5PChyDGk94cAWtZczbONl8Pc1xVzBF1erfEaLmDRss8QmnZcV_aiJw0ZcRPMChFlBsji2HfLvVdCeqK3L9e8KDg4mjvz1HGPOrJoW1FK_GK5ntiC-BKqc3bsrDMO9QeAwR4"/>
+</div>
+<!-- Main Auth Canvas -->
+<main class="relative z-20 flex-1 flex items-center justify-center p-md lg:p-xl">
+<div class="max-w-4xl w-full flex flex-col md:flex-row shadow-2xl rounded-2xl overflow-hidden bg-white/60 backdrop-blur-xl border border-white/40">
+<!-- Left Side: Branding & Value Prop -->
+<div class="md:w-5/12 bg-deep-navy p-xl flex flex-col justify-between text-white relative overflow-hidden">
+<div class="relative z-10">
+<h1 class="font-display-xl text-display-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-ocean-gradient-start to-ocean-gradient-end">
+                        Tourism Hub
+                    </h1>
+<p class="mt-md font-body-lg text-outline-variant opacity-90">
+                        The visionary suite for modern travel management and experience design.
+                    </p>
+</div>
+<div class="relative z-10 space-y-lg">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-ocean-gradient-start" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">public</span>
+</div>
+<div>
+<p class="font-title-md text-white">Global Reach</p>
+<p class="font-body-sm text-outline-variant">Access 200+ destinations worldwide.</p>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-ocean-gradient-start" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">auto_awesome</span>
+</div>
+<div>
+<p class="font-title-md text-white">Premium Concierge</p>
+<p class="font-body-sm text-outline-variant">AI-driven trip orchestration.</p>
+</div>
+</div>
+</div>
+<!-- Abstract Decorative Element -->
+<div class="absolute -bottom-20 -left-20 w-64 h-64 bg-ocean-gradient-start/20 rounded-full blur-3xl"></div>
+</div>
+<!-- Right Side: Auth Forms -->
+<div class="md:w-7/12 p-xl bg-white/80 flex flex-col justify-center">
+<!-- Toggle Tabs -->
+<div class="flex mb-xl bg-surface-container rounded-full p-1 self-start">
+<button class="px-lg py-sm rounded-full font-label-caps text-label-caps transition-all bg-white shadow-sm text-primary" id="loginTab" onclick="toggleAuth('login')">LOGIN</button>
+<button class="px-lg py-sm rounded-full font-label-caps text-label-caps transition-all text-text-muted hover:text-primary" id="signupTab" onclick="toggleAuth('signup')">SIGNUP</button>
+</div>
+<!-- Role Selection (Shared between both) -->
+<div class="mb-lg">
+<label class="font-label-caps text-label-caps text-text-muted block mb-sm">IDENTIFY YOUR ROLE</label>
+<div class="grid grid-cols-3 gap-sm">
+<label class="role-card flex flex-col items-center justify-center p-sm border-2 border-outline-variant/30 rounded-xl cursor-pointer hover:border-primary/50 transition-all group">
+<input checked="" class="hidden" name="role" type="radio" value="customer"/>
+<span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors" aria-hidden="true">person</span>
+<span class="font-label-caps text-[10px] mt-xs">CUSTOMER</span>
+</label>
+<label class="role-card flex flex-col items-center justify-center p-sm border-2 border-outline-variant/30 rounded-xl cursor-pointer hover:border-primary/50 transition-all group">
+<input class="hidden" name="role" type="radio" value="agency"/>
+<span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors" aria-hidden="true">business_center</span>
+<span class="font-label-caps text-[10px] mt-xs">AGENCY</span>
+</label>
+<label class="role-card flex flex-col items-center justify-center p-sm border-2 border-outline-variant/30 rounded-xl cursor-pointer hover:border-primary/50 transition-all group">
+<input class="hidden" name="role" type="radio" value="admin"/>
+<span class="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors" aria-hidden="true">admin_panel_settings</span>
+<span class="font-label-caps text-[10px] mt-xs">ADMIN</span>
+</label>
+</div>
+</div>
+<!-- Form Container -->
+<div class="relative overflow-hidden min-h-[300px]">
+<!-- Login Form -->
+<form class="auth-transition space-y-md" id="loginForm" onsubmit="handleLogin(event)">
+<h2 class="font-headline-lg text-headline-lg text-deep-navy mb-md">Welcome Back</h2>
+<div class="space-y-base">
+<label class="font-label-caps text-label-caps text-text-muted">EMAIL ADDRESS</label>
+<input id="loginEmail" required class="w-full px-md py-sm rounded-lg border border-outline-variant bg-white focus:ring-2 focus:ring-primary-container focus:border-primary transition-all outline-none" placeholder="concierge@tourismhub.com" type="email"/>
+</div>
+<div class="space-y-base">
+<div class="flex justify-between">
+<label class="font-label-caps text-label-caps text-text-muted">PASSWORD</label>
+<a class="text-[11px] text-primary hover:underline font-semibold" href="#">Forgot?</a>
+</div>
+<input id="loginPassword" required class="w-full px-md py-sm rounded-lg border border-outline-variant bg-white focus:ring-2 focus:ring-primary-container focus:border-primary transition-all outline-none" placeholder="••••••••" type="password"/>
+</div>
+<button id="loginSubmitBtn" class="w-full py-md bg-gradient-to-r from-ocean-gradient-start to-ocean-gradient-end text-white font-semibold rounded-lg shadow-lg hover:scale-[1.02] active:scale-95 transition-all mt-lg flex items-center justify-center gap-sm" type="submit">
+                            <span id="loginBtnText">Continue to Dashboard</span>
+                        </button>
+</form>
+<!-- Signup Form (Hidden by default) -->
+<form class="auth-transition space-y-md hidden opacity-0 translate-x-8" id="signupForm" onsubmit="handleSignup(event)">
+<h2 class="font-headline-lg text-headline-lg text-deep-navy mb-md">Start Your Journey</h2>
+<div class="grid grid-cols-2 gap-md">
+<div class="space-y-base">
+<label class="font-label-caps text-label-caps text-text-muted">FIRST NAME</label>
+<input id="signupFirstName" required class="w-full px-md py-sm rounded-lg border border-outline-variant bg-white focus:ring-2 focus:ring-primary-container focus:border-primary transition-all outline-none" placeholder="John" type="text"/>
+</div>
+<div class="space-y-base">
+<label class="font-label-caps text-label-caps text-text-muted">LAST NAME</label>
+<input id="signupLastName" required class="w-full px-md py-sm rounded-lg border border-outline-variant bg-white focus:ring-2 focus:ring-primary-container focus:border-primary transition-all outline-none" placeholder="Doe" type="text"/>
+</div>
+</div>
+<div class="space-y-base">
+<label class="font-label-caps text-label-caps text-text-muted">EMAIL ADDRESS</label>
+<input id="signupEmail" required class="w-full px-md py-sm rounded-lg border border-outline-variant bg-white focus:ring-2 focus:ring-primary-container focus:border-primary transition-all outline-none" placeholder="traveler@world.com" type="email"/>
+</div>
+<div class="space-y-base">
+<label class="font-label-caps text-label-caps text-text-muted">CHOOSE PASSWORD</label>
+<input id="signupPassword" required minlength="6" class="w-full px-md py-sm rounded-lg border border-outline-variant bg-white focus:ring-2 focus:ring-primary-container focus:border-primary transition-all outline-none font-sans" placeholder="••••••••" type="password"/>
+<div class="space-y-xs">
+  <div class="flex justify-between items-center text-xs mt-1">
+    <span class="text-text-muted">Password Strength:</span>
+    <span id="password-strength-text" class="font-semibold text-text-muted">None</span>
+  </div>
+  <div class="h-1.5 w-full bg-surface-container rounded-full overflow-hidden flex gap-1">
+    <div id="strength-bar-1" class="h-full flex-1 bg-transparent transition-all"></div>
+    <div id="strength-bar-2" class="h-full flex-1 bg-transparent transition-all"></div>
+    <div id="strength-bar-3" class="h-full flex-1 bg-transparent transition-all"></div>
+  </div>
+</div>
+</div>
+<div class="flex items-center gap-sm mt-md">
+<input required class="w-4 h-4 text-primary border-outline-variant rounded focus:ring-primary" type="checkbox"/>
+<span class="text-[12px] text-text-muted">I agree to the <a class="text-primary hover:underline" href="terms.html">Terms of Service</a></span>
+</div>
+<button id="signupSubmitBtn" class="w-full py-md bg-gradient-to-r from-ocean-gradient-start to-ocean-gradient-end text-white font-semibold rounded-lg shadow-lg hover:scale-[1.02] active:scale-95 transition-all mt-lg flex items-center justify-center gap-sm" type="submit">
+                            <span id="signupBtnText">Create Account</span>
+                        </button>
+</form>
+</div>
+<!-- Social Auth -->
+<div class="mt-xl">
+<div class="relative flex items-center mb-lg">
+<div class="flex-grow border-t border-outline-variant/30"></div>
+<span class="flex-shrink mx-4 text-text-muted font-label-caps text-[10px]">OR CONTINUE WITH</span>
+<div class="flex-grow border-t border-outline-variant/30"></div>
+</div>
+<div class="grid grid-cols-2 gap-md">
+<button type="button" onclick="handleSocialLogin('google')" class="flex items-center justify-center gap-sm px-lg py-sm border border-outline-variant/40 rounded-lg hover:bg-surface-container-low transition-colors">
+<svg class="w-5 h-5" viewbox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"></path><path d="M12 5.38c1.62 0 3.06.56 4.21 1.66l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 12-4.53z" fill="#EA4335"></path></svg>
+<span class="font-body-sm font-semibold">Google</span>
+</button>
+<button type="button" onclick="handleSocialLogin('github')" class="flex items-center justify-center gap-sm px-lg py-sm border border-outline-variant/40 rounded-lg hover:bg-surface-container-low transition-colors">
+<svg class="w-5 h-5" viewbox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.419 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.341-3.369-1.341-.454-1.152-1.11-1.459-1.11-1.459-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482C19.138 20.164 22 16.418 22 12c0-5.523-4.477-10-10-10z" fill="#000"></path></svg>
+<span class="font-body-sm font-semibold">GitHub</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Simplified Footer -->
+<footer class="relative z-20 w-full py-lg px-lg mt-auto flex flex-col md:flex-row items-center justify-between gap-md bg-white/20 backdrop-blur-md">
+<div class="flex flex-col items-center md:items-start">
+<span class="font-label-caps text-label-caps text-deep-navy">© 2024 TOURISM HUB SAAS</span>
+<span class="font-body-sm text-text-muted mt-xs">Premium concierge & destination orchestration.</span>
+</div>
+<div class="flex gap-lg">
+<a class="font-label-caps text-label-caps text-text-muted hover:text-primary transition-colors" href="privacy.html">Privacy Policy</a>
+<a class="font-label-caps text-label-caps text-text-muted hover:text-primary transition-colors" href="terms.html">Terms of Service</a>
+<a class="font-label-caps text-label-caps text-text-muted hover:text-primary transition-colors" href="contact.html">Contact Support</a>
+</div>
+</footer>
+<script src="js/app.js"></script>
+<script>
+        function toggleAuth(type) {
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            const loginTab = document.getElementById('loginTab');
+            const signupTab = document.getElementById('signupTab');
+
+            if (type === 'login') {
+                // Style Tabs
+                loginTab.classList.add('bg-white', 'shadow-sm', 'text-primary');
+                loginTab.classList.remove('text-text-muted');
+                signupTab.classList.remove('bg-white', 'shadow-sm', 'text-primary');
+                signupTab.classList.add('text-text-muted');
+
+                // Animate Forms
+                signupForm.classList.add('opacity-0', 'translate-x-8');
+                setTimeout(() => {
+                    signupForm.classList.add('hidden');
+                    loginForm.classList.remove('hidden');
+                    setTimeout(() => {
+                        loginForm.classList.remove('opacity-0', '-translate-x-8');
+                    }, 50);
+                }, 300);
+            } else {
+                // Style Tabs
+                signupTab.classList.add('bg-white', 'shadow-sm', 'text-primary');
+                signupTab.classList.remove('text-text-muted');
+                loginTab.classList.remove('bg-white', 'shadow-sm', 'text-primary');
+                loginTab.classList.add('text-text-muted');
+
+                // Animate Forms
+                loginForm.classList.add('opacity-0', '-translate-x-8');
+                setTimeout(() => {
+                    loginForm.classList.add('hidden');
+                    signupForm.classList.remove('hidden');
+                    setTimeout(() => {
+                        signupForm.classList.remove('opacity-0', 'translate-x-8');
+                    }, 50);
+                }, 300);
+            }
+        }
+
+        // Initialize transition classes for the first time
+        window.addEventListener('DOMContentLoaded', () => {
+            const forms = document.querySelectorAll('.auth-transition');
+            forms.forEach(f => {
+                if(f.id === 'signupForm') f.classList.add('opacity-0', 'translate-x-8');
+            });
+            
+            // Toggle to register tab if requested in query
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('register') === 'true') {
+                toggleAuth('signup');
+            }
+        });
+
+        // Password strength checker listener
+        document.getElementById('signupPassword').addEventListener('input', (e) => {
+            const val = e.target.value;
+            const strengthText = document.getElementById('password-strength-text');
+            const bar1 = document.getElementById('strength-bar-1');
+            const bar2 = document.getElementById('strength-bar-2');
+            const bar3 = document.getElementById('strength-bar-3');
+
+            // reset
+            bar1.className = 'h-full flex-1 bg-transparent transition-all';
+            bar2.className = 'h-full flex-1 bg-transparent transition-all';
+            bar3.className = 'h-full flex-1 bg-transparent transition-all';
+            strengthText.className = 'font-semibold text-xs transition-colors';
+
+            if (!val) {
+                strengthText.innerText = 'None';
+                strengthText.classList.add('text-text-muted');
+                return;
+            }
+
+            let score = 0;
+            if (val.length >= 6) score++;
+            if (val.length >= 10) score++;
+            if (/[0-9]/.test(val)) score++;
+            if (/[A-Z]/.test(val) && /[a-z]/.test(val)) score++;
+            if (/[^A-Za-z0-9]/.test(val)) score++;
+
+            if (score <= 1) {
+                strengthText.innerText = 'Weak';
+                strengthText.classList.add('text-error');
+                bar1.classList.add('bg-error');
+            } else if (score <= 3) {
+                strengthText.innerText = 'Medium';
+                strengthText.classList.add('text-tertiary');
+                bar1.classList.add('bg-tertiary');
+                bar2.classList.add('bg-tertiary');
+            } else {
+                strengthText.innerText = 'Strong';
+                strengthText.classList.add('text-secondary');
+                bar1.classList.add('bg-secondary');
+                bar2.classList.add('bg-secondary');
+                bar3.classList.add('bg-secondary');
+            }
+        });
+
+        async function handleLogin(event) {
+            event.preventDefault();
+            const form = document.getElementById('loginForm');
+            form.classList.add('submitted');
+            
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const btn = document.getElementById('loginSubmitBtn');
+            const textSpan = document.getElementById('loginBtnText');
+
+            btn.disabled = true;
+            btn.classList.add('opacity-75', 'cursor-not-allowed');
+            textSpan.innerHTML = `<span class="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></span>Logging in...`;
+            
+            try {
+                const res = await apiRequest('/auth/login', {
+                    method: 'POST',
+                    body: JSON.stringify({ usernameOrEmail: email, password: password })
+                });
+                
+                if (res && res.data) {
+                    setToken(res.data.accessToken);
+                    setUser(res.data.username);
+                    setRoles(res.data.roles || []);
+                    showToast('Login successful!', 'success');
+                    
+                    setTimeout(() => {
+                        if (isAdmin()) {
+                            window.location.href = 'admin.html';
+                        } else {
+                            if (sessionStorage.getItem('selectedPackage')) {
+                                window.location.href = 'booking.html';
+                            } else {
+                                window.location.href = 'dashboard.html';
+                            }
+                        }
+                    }, 1000);
+                }
+            } catch (err) {
+                showToast(`Login failed: ${err.message}`, 'error');
+                btn.disabled = false;
+                btn.classList.remove('opacity-75', 'cursor-not-allowed');
+                textSpan.innerText = 'Continue to Dashboard';
+            }
+        }
+
+        async function handleSignup(event) {
+            event.preventDefault();
+            const form = document.getElementById('signupForm');
+            form.classList.add('submitted');
+
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const username = email.split('@')[0]; // simple unique-ish username representation
+            const btn = document.getElementById('signupSubmitBtn');
+            const textSpan = document.getElementById('signupBtnText');
+
+            btn.disabled = true;
+            btn.classList.add('opacity-75', 'cursor-not-allowed');
+            textSpan.innerHTML = `<span class="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></span>Creating account...`;
+            
+            try {
+                await apiRequest('/auth/register', {
+                    method: 'POST',
+                    body: JSON.stringify({ username: username, email: email, password: password })
+                });
+                
+                showToast('Registration successful! Please login.', 'success');
+                setTimeout(() => {
+                    toggleAuth('login');
+                    document.getElementById('loginEmail').value = email;
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-75', 'cursor-not-allowed');
+                    textSpan.innerText = 'Create Account';
+                }, 1000);
+            } catch (err) {
+                showToast(`Registration failed: ${err.message}`, 'error');
+                btn.disabled = false;
+                btn.classList.remove('opacity-75', 'cursor-not-allowed');
+                textSpan.innerText = 'Create Account';
+            }
+        }
+    </script>
+</body></html>

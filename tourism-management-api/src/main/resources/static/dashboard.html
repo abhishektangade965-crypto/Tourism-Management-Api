@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Customer Dashboard | Tourism Hub</title>
+<script>
+    (function() {
+        const theme = localStorage.getItem('theme') || 'light';
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+        } else {
+            document.documentElement.classList.add('light');
+            document.documentElement.classList.remove('dark');
+        }
+    })();
+</script>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "text-muted": "#64748b",
+                      "on-primary-container": "#004965",
+                      "on-background": "#191c1e",
+                      "deep-navy": "#0f172a",
+                      "outline": "#6e7980",
+                      "inverse-on-surface": "#eff1f3",
+                      "outline-variant": "#bdc8d1",
+                      "on-error": "#ffffff",
+                      "secondary-fixed": "#6bff8f",
+                      "tertiary-fixed-dim": "#ffb960",
+                      "text-main": "#1e293b",
+                      "on-error-container": "#93000a",
+                      "on-surface": "#191c1e",
+                      "on-tertiary-fixed": "#2a1700",
+                      "on-secondary-container": "#007432",
+                      "surface-variant": "#e0e3e5",
+                      "error": "#ba1a1a",
+                      "on-primary-fixed": "#001e2c",
+                      "primary-fixed-dim": "#7bd0ff",
+                      "surface-bright": "#f7f9fb",
+                      "surface": "#f7f9fb",
+                      "on-secondary": "#ffffff",
+                      "secondary-fixed-dim": "#4ae176",
+                      "surface-dim": "#d8dadc",
+                      "on-secondary-fixed": "#002109",
+                      "ocean-gradient-start": "#38bdf8",
+                      "on-primary-fixed-variant": "#004c69",
+                      "tertiary-container": "#f1a02b",
+                      "surface-container-low": "#f2f4f6",
+                      "on-primary": "#ffffff",
+                      "inverse-primary": "#7bd0ff",
+                      "on-surface-variant": "#3e484f",
+                      "primary-fixed": "#c4e7ff",
+                      "ocean-gradient-end": "#22c55e",
+                      "primary-container": "#38bdf8",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-fixed-variant": "#005321",
+                      "tertiary": "#855300",
+                      "background": "#f7f9fb",
+                      "surface-tint": "#00668a",
+                      "surface-container": "#eceef0",
+                      "secondary-container": "#6bff8f",
+                      "surface-container-high": "#e6e8ea",
+                      "secondary": "#006e2f",
+                      "on-tertiary-container": "#613b00",
+                      "error-container": "#ffdad6",
+                      "primary": "#00668a",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-highest": "#e0e3e5",
+                      "surface-card": "#ffffff",
+                      "inverse-surface": "#2d3133",
+                      "tertiary-fixed": "#ffddb8",
+                      "on-tertiary-fixed-variant": "#653e00"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xl": "48px",
+                      "lg": "24px",
+                      "container-max": "1280px",
+                      "gutter": "24px",
+                      "base": "4px",
+                      "xs": "4px",
+                      "md": "16px",
+                      "sm": "8px"
+              },
+              "fontFamily": {
+                      "label-caps": ["Inter"],
+                      "display-xl": ["Plus Jakarta Sans"],
+                      "headline-lg": ["Plus Jakarta Sans"],
+                      "title-md": ["Plus Jakarta Sans"],
+                      "body-md": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "headline-lg-mobile": ["Plus Jakarta Sans"],
+                      "body-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "display-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .glass-nav {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.8);
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+        .card-hover-effect {
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+        }
+        .card-hover-effect:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        /* Dark mode custom overrides */
+        .dark body {
+            background-color: #020617 !important;
+            color: #f1f5f9 !important;
+        }
+        .dark aside {
+            background-color: #0f172a !important;
+            border-color: #1e293b !important;
+        }
+        .dark .bg-surface-card, .dark .bg-surface-container-low, .dark .bg-surface-container-lowest, .dark .glass-card {
+            background-color: #0f172a !important;
+            border-color: #1e293b !important;
+        }
+        .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6, .dark .text-on-surface {
+            color: #ffffff !important;
+        }
+        .dark p, .dark span:not(.bg-clip-text):not(.text-on-secondary-container):not(.text-primary):not(.text-on-tertiary-container):not(.text-on-error-container), .dark label, .dark .text-text-muted {
+            color: #cbd5e1 !important;
+        }
+        .dark input, .dark select {
+            background-color: #1e293b !important;
+            border-color: #334155 !important;
+            color: #ffffff !important;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen dark:bg-slate-950 dark:text-slate-100">
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-full w-60 z-40 flex flex-col py-lg px-md bg-surface border-r border-outline-variant/30 shadow-md">
+<div class="mb-xl px-sm">
+<h1 class="font-display-xl text-display-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-ocean-gradient-start to-ocean-gradient-end">Tourism Hub</h1>
+<p class="font-body-sm text-body-sm text-text-muted mt-1 uppercase tracking-wider">Traveler Workspace</p>
+</div>
+<nav class="flex-1 space-y-1 overflow-y-auto custom-scrollbar">
+<!-- Dashboard (Active) -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-primary bg-primary-container/20 font-bold scale-[0.98]" href="dashboard.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-caps text-label-caps">Dashboard</span>
+</a>
+<!-- My Bookings -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-text-muted hover:bg-surface-container" href="dashboard.html">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-label-caps text-label-caps">My Bookings</span>
+</a>
+<!-- Explore -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-text-muted hover:bg-surface-container" href="packages.html">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-label-caps text-label-caps">Explore</span>
+</a>
+<!-- Users -->
+<a id="sidebar-users-link" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-text-muted hover:bg-surface-container" href="admin.html">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-caps text-label-caps">Users</span>
+</a>
+<!-- Tour Packages -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-text-muted hover:bg-surface-container" href="packages.html">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-caps text-label-caps">Tour Packages</span>
+</a>
+<!-- Analytics -->
+<a id="sidebar-analytics-link" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-text-muted hover:bg-surface-container" href="admin.html">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-caps text-label-caps">Analytics</span>
+</a>
+<!-- Payments -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-text-muted hover:bg-surface-container" href="dashboard.html">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-caps text-label-caps">Payments</span>
+</a>
+<!-- Profile -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-text-muted hover:bg-surface-container" href="dashboard.html">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-caps text-label-caps">Profile</span>
+</a>
+</nav>
+<div class="mt-auto pt-lg">
+<button onclick="window.location.href='packages.html'" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-ocean-gradient-start to-ocean-gradient-end text-white font-bold shadow-lg hover:scale-105 transition-transform flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">add</span>
+                New Booking
+            </button>
+<div class="mt-6 flex items-center gap-3 p-3 bg-surface-container-low rounded-2xl">
+<img alt="User Profile Avatar" class="w-10 h-10 rounded-full border border-primary/20 shadow-sm" src='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2364748b"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>'/>
+<div class="overflow-hidden">
+<p id="sidebar-username" class="font-bold text-on-surface truncate">Traveler</p>
+<p id="sidebar-role" class="text-xs text-text-muted truncate">Premium Traveler</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-60 min-h-screen p-lg max-w-container-max mx-auto">
+<!-- Header / Welcome Banner -->
+<header class="relative w-full h-[320px] rounded-[32px] overflow-hidden mb-xl shadow-xl flex items-center px-xl">
+<img alt="Scenic beach header" class="absolute inset-0 w-full h-full object-cover" data-alt="A wide panoramic view of a pristine tropical beach with crystal clear turquoise water gently lapping against soft white sand. In the distance, lush green palm trees sway under a bright azure sky with soft, wispy white clouds. The lighting is high-key and sun-drenched, creating an aspirational and inviting atmosphere that perfectly aligns with a premium tourism brand's optimistic aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAP3mGLcsOjWI8RbJVrB540bocftNj4quMMLXA6-9GNWrbhFAeP8-ERE3fH3pnB0zxOJ20qBvqWCbZYoraZjssbz2cPGVACtJY4soiPM36n7IxlbT2Ijj7TsVOcimJ67y0gLP1GrzKmD0YDZ5HEJsL_dr4ND9YZ9WzeDn7UKXeBbVjAdU8w0nPRv6_LZoNkDjlvXTCS6rTtVBl9Fx4B1rSZeDuzMZozrVC2C3rmm_hWaCnDHoW0yaFxuEXvb--KfhUIMXVMvUqhQys"/>
+<div class="absolute inset-0 bg-gradient-to-r from-deep-navy/60 via-deep-navy/20 to-transparent"></div>
+<div class="relative z-10 max-w-2xl">
+<span id="welcome-badge" class="inline-block px-4 py-1 rounded-full bg-white/20 backdrop-blur-md text-white font-label-caps text-label-caps mb-4">Welcome back</span>
+<h2 id="welcome-heading" class="font-display-xl text-display-xl text-white mb-6 leading-tight">Where to next?</h2>
+<div class="flex gap-4">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-white/70">search</span>
+<input id="dashboardSearchInput" class="w-full bg-white/10 backdrop-blur-md border border-white/30 rounded-xl py-4 pl-12 pr-4 text-white placeholder:text-white/60 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all" placeholder="Search destinations, tours, or hotels..." type="text"/>
+</div>
+<button onclick="handleDashboardSearch()" class="px-8 py-4 bg-white text-primary font-bold rounded-xl hover:bg-surface-container-highest transition-colors shadow-lg">Explore</button>
+</div>
+</div>
+</header>
+<!-- Bento Grid Content -->
+<div class="bento-grid">
+<!-- Upcoming Trips (8 Columns) -->
+<section class="col-span-12 lg:col-span-8 flex flex-col gap-6">
+<div class="flex justify-between items-center px-1">
+<h3 class="font-headline-lg text-headline-lg text-on-surface">Upcoming Trips</h3>
+<a class="text-primary font-label-caps text-label-caps flex items-center gap-1 hover:underline" href="packages.html">View All <span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+<div id="upcoming-trips-container" class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<!-- Dynamic Trip Cards Rendered Here -->
+</div>
+<!-- Booking History Table -->
+<div class="mt-8 bg-surface-card rounded-[24px] shadow-sm border border-outline-variant/20 overflow-hidden">
+<div class="p-lg border-b border-outline-variant/20 flex justify-between items-center">
+<h3 class="font-title-md text-title-md text-on-surface">Booking History</h3>
+<button class="text-primary hover:bg-primary/5 p-2 rounded-lg transition-colors" aria-label="Filter bookings">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-text-muted">
+<th class="py-4 px-6 font-label-caps text-label-caps text-text-muted">Destination</th>
+<th class="py-4 px-6 font-label-caps text-label-caps text-text-muted">Date</th>
+<th class="py-4 px-6 font-label-caps text-label-caps text-text-muted">Status</th>
+<th class="py-4 px-6 font-label-caps text-label-caps text-text-muted">Amount</th>
+<th class="py-4 px-6"></th>
+</tr>
+</thead>
+<tbody id="bookings-table-body" class="divide-y divide-outline-variant/10">
+<!-- Dynamic bookings rendered here -->
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- Personalized Sidebar (4 Columns) -->
+<aside class="col-span-12 lg:col-span-4 flex flex-col gap-8">
+<!-- Trip Summary Card -->
+<div class="bg-deep-navy rounded-[32px] p-lg text-white relative overflow-hidden shadow-2xl">
+<div class="relative z-10">
+<h3 class="font-title-md text-title-md mb-6">Travel Stats 2024</h3>
+<div class="grid grid-cols-2 gap-4 mb-8">
+<div class="p-4 bg-white/10 rounded-2xl border border-white/10">
+<p class="text-white/60 font-label-caps text-[10px] mb-1 uppercase tracking-wider">COUNTRIES</p>
+<p id="stats-countries" class="text-2xl font-bold">0</p>
+</div>
+<div class="p-4 bg-white/10 rounded-2xl border border-white/10">
+<p class="text-white/60 font-label-caps text-[10px] mb-1 uppercase tracking-wider">TOTAL DISTANCE</p>
+<p id="stats-distance" class="text-2xl font-bold">0 km</p>
+</div>
+</div>
+<div class="p-6 bg-gradient-to-br from-primary to-ocean-gradient-end rounded-[24px] shadow-lg">
+<p class="text-white/80 text-sm mb-2 font-semibold">Eco-Travel Progress</p>
+<div class="flex items-center gap-4">
+<div class="flex-1 bg-white/30 h-2 rounded-full overflow-hidden">
+<div class="bg-white h-full" style="width: 82%;"></div>
+</div>
+<span class="font-bold text-xl">82%</span>
+</div>
+<p class="text-[10px] text-white/70 mt-2">Top 5% Eco-certified Traveler score!</p>
+</div>
+</div>
+<!-- Background Decoration -->
+<div class="absolute -bottom-10 -right-10 w-40 h-40 bg-ocean-gradient-start/20 blur-[60px] rounded-full"></div>
+</div>
+<!-- Personalized Recommendations -->
+<div class="flex flex-col gap-6">
+<h3 class="font-title-md text-title-md text-on-surface px-1">Curated Recommendations</h3>
+<div class="flex flex-col gap-4">
+<!-- Rec 1 -->
+<div onclick="selectPackage('Agra Luxury Heritage', 890.00, 'India')" class="flex items-center gap-4 p-4 bg-surface-card border border-outline-variant/10 rounded-2xl hover:shadow-md transition-shadow cursor-pointer group">
+<img class="w-20 h-20 rounded-xl object-cover" alt="Agra Taj Mahal" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBli-_IjOhX_ID4w5zyZEXrLuVYzfVTjMTnPku4gPQQqE2v2Lcr-y0ZnSrQg1_1RgsHzmeIHyL5hFHmyu9xGfwJA05lXJPysZLC7L2sJQYG0Kv4wRMeXr4XeInm8MKItJ2j09Xt4HZzRsufFK4rH1Ea7oYYe5T-cplKlVhvp4BKf3WFsedB7zZmgwd2JipeFxY7cGeted5vuYDFxazpoVAqFbjegYRGIYieyc5DzWRbPSYrSDdpFEWWST_wsVVSZtttARAurKm34Ho"/>
+<div class="flex-1 min-w-0">
+<h4 class="font-bold text-on-surface group-hover:text-primary transition-colors truncate">Agra Luxury Heritage</h4>
+<p class="text-xs text-text-muted mb-2">3 Nights • Private Tour</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-tertiary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-[12px] font-bold">4.9</span>
+</div>
+<span class="text-[12px] font-bold text-primary">$890</span>
+</div>
+</div>
+</div>
+<!-- Rec 2 -->
+<div onclick="selectPackage('Italian Coastline Escape', 1240.00, 'Italy')" class="flex items-center gap-4 p-4 bg-surface-card border border-outline-variant/10 rounded-2xl hover:shadow-md transition-shadow cursor-pointer group">
+<img class="w-20 h-20 rounded-xl object-cover" alt="Cinque Terre Italy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1nvPSlamD_Zk3dtEq6O12VltlHmwN9HyxxJICV0CCm6x5X4JlMZtY3hwFeCTcpT32AFtPpPy5hbSfhbFJX4wqde4wjpUesYpSL-3DKKOzRNsPd7prMw6lVN-reGT4jeBi4bh6WDcguN6ybbI_TZ7B9QESv1vcE0iHvls157_QXWDPcI5yTJptb5fSC37tPNFyRQMvqQZHuN8oRHHjClllemOnkBUMmbxAUbrz7htZ7nEwcJAMJtayD4litRHpbNZ5NnLaFbewDAw"/>
+<div class="flex-1 min-w-0">
+<h4 class="font-bold text-on-surface group-hover:text-primary transition-colors truncate">Italian Coastline Escape</h4>
+<p class="text-xs text-text-muted mb-2">5 Nights • All-inclusive</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-tertiary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-[12px] font-bold">4.8</span>
+</div>
+<span class="text-[12px] font-bold text-primary">$1,240</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Customer Support Prompt -->
+<div class="p-6 bg-primary-container/10 border border-primary-container/20 rounded-[24px] relative">
+<span class="material-symbols-outlined text-primary mb-3" aria-hidden="true">headset_mic</span>
+<h4 class="font-bold text-primary mb-2">Need help with your booking?</h4>
+<p class="text-sm text-on-primary-container/80 mb-4">Our premium concierge is available 24/7 to assist you with any custom arrangements.</p>
+<button class="text-primary font-bold text-sm flex items-center gap-2 hover:translate-x-1 transition-transform">Chat with Concierge <span class="material-symbols-outlined text-[18px]">arrow_right_alt</span></button>
+</div>
+</aside>
+</div>
+</main>
+<!-- Footer -->
+<footer class="ml-60 w-[calc(100%-240px)] py-xl px-lg mt-auto flex flex-col items-center gap-md bg-deep-navy text-on-primary border-t border-outline-variant/20">
+<div class="flex flex-wrap justify-center gap-xl mb-6">
+<a class="font-label-caps text-label-caps text-outline-variant hover:text-ocean-gradient-start transition-colors" href="about.html">About Us</a>
+<a class="font-label-caps text-label-caps text-outline-variant hover:text-ocean-gradient-start transition-colors" href="contact.html">Contact Us</a>
+<a class="font-label-caps text-label-caps text-outline-variant hover:text-ocean-gradient-start transition-colors" href="index.html#faq">FAQ</a>
+<a class="font-label-caps text-label-caps text-outline-variant hover:text-ocean-gradient-start transition-colors" href="index.html#support">Support</a>
+<a class="font-label-caps text-label-caps text-outline-variant hover:text-ocean-gradient-start transition-colors" href="terms.html#cancellation">Cancellation Policy</a>
+<a class="font-label-caps text-label-caps text-outline-variant hover:text-ocean-gradient-start transition-colors" href="terms.html">Terms of Service</a>
+<a class="font-label-caps text-label-caps text-outline-variant hover:text-ocean-gradient-start transition-colors" href="privacy.html">Privacy Policy</a>
+</div>
+<div class="font-display-xl text-display-xl font-bold text-white mb-2">Tourism Hub</div>
+<p class="font-body-sm text-body-sm text-outline-variant/60">© 2024 Tourism Hub SaaS. All rights reserved.</p>
+</footer>
+<script src="js/app.js"></script>
+<script>
+        // Micro-interactions and effects
+        document.querySelectorAll('.card-hover-effect').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                // Potential for adding dynamic cursor or flare effects
+            });
+        });
+
+        // Simple smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Dynamic load dashboard data and bindings
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuth();
+            loadDashboardData();
+
+            // Bind search enter keypress
+            const searchInput = document.getElementById('dashboardSearchInput');
+            if (searchInput) {
+                searchInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        handleDashboardSearch();
+                    }
+                });
+            }
+        });
+
+        function handleDashboardSearch() {
+            const query = document.getElementById('dashboardSearchInput').value.trim();
+            handleSearchRedirect(query);
+        }
+
+        async function loadDashboardData() {
+            try {
+                // Fetch user details
+                const meRes = await apiRequest('/auth/me');
+                const user = meRes.data;
+                const email = user.email;
+                const username = user.username;
+                
+                // Update user details
+                document.getElementById('sidebar-username').innerText = username;
+                document.getElementById('sidebar-role').innerText = user.roles.includes('ROLE_ADMIN') ? 'Global Admin' : 'Premium Traveler';
+                document.getElementById('welcome-badge').innerText = `Welcome back, ${username}`;
+                document.getElementById('welcome-heading').innerText = `Where to next, ${username}?`;
+                
+                // Update Admin menu options in sidebar
+                if (!user.roles.includes('ROLE_ADMIN')) {
+                    const usersLink = document.getElementById('sidebar-users-link');
+                    const analyticsLink = document.getElementById('sidebar-analytics-link');
+                    if (usersLink) usersLink.style.display = 'none';
+                    if (analyticsLink) analyticsLink.style.display = 'none';
+                }
+                
+                // Fetch bookings for this email
+                const bookingsRes = await apiRequest(`/tourists/email/${email}`);
+                const bookings = bookingsRes.data || [];
+                
+                // Render stats
+                const uniqueCountries = new Set(bookings.map(b => b.country).filter(Boolean));
+                document.getElementById('stats-countries').innerText = uniqueCountries.size;
+                document.getElementById('stats-distance').innerText = (bookings.length * 2800).toLocaleString() + ' km';
+                
+                // Render Upcoming Trips
+                const upcomingContainer = document.getElementById('upcoming-trips-container');
+                const activeBookings = bookings.filter(b => b.isActive && b.bookingStatus !== 'CANCELLED' && b.bookingStatus !== 'COMPLETED' && b.bookingStatus !== 'EXPIRED');
+                
+                function getStatusBadge(status) {
+                    const s = (status || '').toUpperCase();
+                    if (s === 'UPCOMING' || s === 'CONFIRMED') {
+                        return {
+                            label: 'Upcoming',
+                            classes: 'bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20'
+                        };
+                    } else if (s === 'COMPLETED') {
+                        return {
+                            label: 'Completed',
+                            classes: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20'
+                        };
+                    } else if (s === 'CANCELLED') {
+                        return {
+                            label: 'Cancelled',
+                            classes: 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20'
+                        };
+                    } else if (s === 'EXPIRED') {
+                        return {
+                            label: 'Expired',
+                            classes: 'bg-slate-500/10 text-slate-600 dark:text-slate-400 border border-slate-500/20'
+                        };
+                    } else {
+                        return {
+                            label: status,
+                            classes: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20'
+                        };
+                    }
+                }
+                
+                if (activeBookings.length === 0) {
+                    upcomingContainer.innerHTML = `
+                        <div class="col-span-1 md:col-span-2 p-xl text-center bg-surface-container-low border border-outline-variant/20 rounded-2xl">
+                            <span class="material-symbols-outlined text-display-xl text-text-muted mb-md">explore</span>
+                            <p class="font-title-md text-on-surface mb-sm">No upcoming trips planned yet</p>
+                            <p class="font-body-sm text-text-muted mb-lg">Browse our premium packages and start your adventure today!</p>
+                            <a href="packages.html" class="inline-block px-lg py-sm bg-gradient-to-r from-ocean-gradient-start to-ocean-gradient-end text-white rounded-lg font-label-caps text-label-caps hover:scale-105 transition-transform">Explore Packages</a>
+                        </div>
+                    `;
+                } else {
+                    upcomingContainer.innerHTML = activeBookings.map((trip, idx) => {
+                        const badge = getStatusBadge(trip.bookingStatus);
+                        const images = [
+                            'https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=600&auto=format&fit=crop&q=80',
+                            'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&auto=format&fit=crop&q=80',
+                            'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600&auto=format&fit=crop&q=80',
+                            'https://images.unsplash.com/photo-1520175480921-4edfa2983e0f?w=600&auto=format&fit=crop&q=80'
+                        ];
+                        const img = images[idx % images.length];
+                        
+                        return `
+                            <div class="group relative bg-surface-card rounded-2xl overflow-hidden shadow-sm border border-outline-variant/20 card-hover-effect">
+                                <div class="h-48 overflow-hidden relative">
+                                    <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="${trip.tourPackage}" src="${img}"/>
+                                    <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg shadow-sm">
+                                        <span class="text-xs font-bold text-primary">Room ${trip.roomNumber}</span>
+                                    </div>
+                                </div>
+                                <div class="p-lg">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <h4 class="font-title-md text-title-md text-on-surface line-clamp-1">${trip.tourPackage}</h4>
+                                        <span class="${badge.classes} px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-widest">${badge.label}</span>
+                                    </div>
+                                    <p class="text-text-muted font-body-sm mb-4 flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-[18px]">location_on</span>
+                                        ${trip.country}
+                                    </p>
+                                    <div class="flex items-center justify-between border-t border-outline-variant/10 pt-4">
+                                        <p class="text-text-muted text-[12px]">${trip.checkInDate} to ${trip.checkOutDate}</p>
+                                        <p class="text-primary font-bold text-body-md">$${trip.totalCost.toFixed(2)}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                }
+                
+                // Render Recent Bookings Table
+                const tableBody = document.getElementById('bookings-table-body');
+                const historyBookings = bookings.filter(b => !b.isActive || b.bookingStatus === 'CANCELLED' || b.bookingStatus === 'COMPLETED' || b.bookingStatus === 'EXPIRED');
+                
+                if (historyBookings.length === 0) {
+                    tableBody.innerHTML = `
+                        <tr>
+                            <td colspan="5" class="py-8 text-center text-text-muted">No booking history found.</td>
+                        </tr>
+                    `;
+                } else {
+                    tableBody.innerHTML = historyBookings.map(b => {
+                        const badge = getStatusBadge(b.bookingStatus);
+                        
+                        return `
+                            <tr class="hover:bg-primary-container/5 transition-colors group">
+                                <td class="py-4 px-6">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                                            <span class="material-symbols-outlined text-primary">flight_takeoff</span>
+                                        </div>
+                                        <div>
+                                            <p class="font-bold text-on-surface">${b.tourPackage}</p>
+                                            <p class="text-[12px] text-text-muted">Booking ID #${b.id}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="py-4 px-6 text-body-sm text-on-surface">${b.checkInDate}</td>
+                                <td class="py-4 px-6">
+                                    <span class="${badge.classes} text-[11px] px-2.5 py-1 rounded-full font-bold uppercase tracking-wider">${badge.label}</span>
+                                </td>
+                                <td class="py-4 px-6 font-bold text-on-surface">$${b.totalCost.toFixed(2)}</td>
+                                <td class="py-4 px-6 text-right">
+                                    <button class="opacity-0 group-hover:opacity-100 p-2 text-text-muted hover:text-primary transition-all">
+                                        <span class="material-symbols-outlined">more_vert</span>
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                    }).join('');
+                }
+            } catch (err) {
+                showToast(`Failed to load dashboard: ${err.message}`, 'error');
+            }
+        }
+    </script>
+</body></html>

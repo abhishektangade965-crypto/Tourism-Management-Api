@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Booking &amp; Payment | Tourism Hub</title>
+<script>
+    (function() {
+        const theme = localStorage.getItem('theme') || 'light';
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+        } else {
+            document.documentElement.classList.add('light');
+            document.documentElement.classList.remove('dark');
+        }
+    })();
+</script>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .submitted input:invalid, .submitted select:invalid {
+            border-color: #ba1a1a !important;
+            background-color: #ffdad6 !important;
+        }
+        /* Dark mode custom overrides */
+        .dark body {
+            background-color: #020617 !important;
+            color: #f1f5f9 !important;
+        }
+        .dark .bg-surface-card, .dark .bg-surface-container-low, .dark .bg-surface-container-lowest, .dark .bg-surface-container-highest\/30 {
+            background-color: #0f172a !important;
+            border-color: #1e293b !important;
+        }
+        .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6, .dark .text-on-surface, .dark .text-text-main {
+            color: #ffffff !important;
+        }
+        .dark p, .dark span:not(.bg-clip-text):not(.text-on-secondary-container), .dark label, .dark .text-text-muted {
+            color: #94a3b8 !important;
+        }
+        .dark input, .dark select {
+            background-color: #1e293b !important;
+            border-color: #334155 !important;
+            color: #ffffff !important;
+        }
+    </style>
+<script src="js/tailwind-config.js"></script>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex flex-col dark:bg-slate-950 dark:text-slate-100">
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 w-full z-50 bg-surface/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-outline-variant/20 dark:border-slate-800 shadow-sm">
+<div class="max-w-container-max mx-auto px-lg py-md flex justify-between items-center">
+<a href="index.html" class="flex items-center gap-md">
+<span class="font-display-xl text-display-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-ocean-gradient-start to-ocean-gradient-end">Tourism Hub</span>
+</a>
+<nav class="hidden md:flex items-center gap-lg">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-200" href="index.html">Destinations</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-200" href="packages.html">Tour Packages</a>
+<a class="font-label-caps text-label-caps text-primary border-b-2 border-primary pb-1" href="dashboard.html">Bookings</a>
+</nav>
+<div id="auth-buttons-container" class="flex items-center gap-md">
+<button onclick="window.location.href='login.html'" class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary px-md py-sm transition-all">Login</button>
+<button onclick="window.location.href='login.html?register=true'" class="bg-gradient-to-r from-ocean-gradient-start to-ocean-gradient-end text-white px-lg py-sm rounded-lg font-label-caps text-label-caps shadow-lg hover:scale-105 active:scale-95 transition-all">Signup</button>
+</div>
+</div>
+</header>
+<main class="flex-grow pt-[100px] pb-xl px-lg max-w-container-max mx-auto w-full">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-lg items-start">
+<!-- Left Column: Booking Summary & Details -->
+<div class="lg:col-span-7 space-y-lg">
+<section class="bg-surface-card border border-outline-variant/30 rounded-2xl shadow-sm overflow-hidden">
+<div class="p-lg border-b border-outline-variant/20 flex justify-between items-center bg-surface-container-low">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-text-main">Review Your Booking</h1>
+<p class="text-text-muted font-body-sm">Order ID: #TH-9928172</p>
+</div>
+<span class="px-md py-xs bg-secondary-container/20 text-on-secondary-container rounded-full font-label-caps text-label-caps flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]" aria-hidden="true">verified_user</span> Secure Checkout
+                        </span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg p-lg border-b border-outline-variant/10">
+<div class="md:col-span-1 rounded-xl overflow-hidden aspect-[4/3] relative">
+<img class="w-full h-full object-cover" alt="A lush tropical island resort with crystal clear turquoise water, white sandy beaches, and luxury overwater bungalows under a bright blue sunny sky. The atmosphere is serene and high-end, featuring vibrant greens and deep ocean blues reflecting a premium travel experience." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMrUx1UGWYqbHVQXSg_1QNIeLdnxx5hWN9Lg_KkTASSbMs6ozRKiAKgv7lzjY31pKAaOPheF2IdHmAO1TIaOgLJJLaCZWMRPCpJCUfDHHJacEecFjNjt30OItwvKu34MnV0YRGXsciE2xHU1WGNB1q1hBBwYgre2_PMgfT5NlVOZwlMRkmsPFZuu5RlAlyfPdbDuhnekt-M5CD8qepjUPx538nKWBDyGM4aCE-_-k36nc6VDIo4xb4t9HO7W1B3YfLiF0g4b3lCH8"/>
+</div>
+<div class="md:col-span-2 space-y-md">
+<div>
+<h2 id="packageName" class="font-title-md text-title-md text-primary">Bali Emerald Coastal Escape</h2>
+<p id="packageLocation" class="font-body-sm text-text-muted flex items-center gap-xs mt-xs">
+<span class="material-symbols-outlined text-[18px]" aria-hidden="true">location_on</span> Uluwatu, Bali, Indonesia
+                                </p>
+</div>
+<div class="grid grid-cols-2 gap-md">
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant/10">
+<p class="font-label-caps text-label-caps text-text-muted uppercase">Check In</p>
+<p class="font-title-md text-title-md">Oct 24, 2024</p>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant/10">
+<p class="font-label-caps text-label-caps text-text-muted uppercase">Duration</p>
+<p class="font-title-md text-title-md">7 Nights</p>
+</div>
+</div>
+</div>
+</div>
+<div class="px-lg pb-lg">
+<div class="bg-surface-container-highest/30 p-lg rounded-2xl border border-outline-variant/20">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]" aria-hidden="true">person</span> Traveler Details
+</h3>
+<form id="booking-details-form" class="space-y-md" onsubmit="event.preventDefault()">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+        <div class="space-y-xs">
+            <label class="font-label-caps text-[11px] text-text-muted px-1">FIRST NAME</label>
+            <input id="firstName" required class="w-full bg-white border border-outline-variant/40 rounded-xl px-md py-sm focus:ring-2 focus:ring-ocean-gradient-start/20 focus:border-ocean-gradient-start outline-none transition-all" placeholder="John" type="text"/>
+        </div>
+        <div class="space-y-xs">
+            <label class="font-label-caps text-[11px] text-text-muted px-1">LAST NAME</label>
+            <input id="lastName" required class="w-full bg-white border border-outline-variant/40 rounded-xl px-md py-sm focus:ring-2 focus:ring-ocean-gradient-start/20 focus:border-ocean-gradient-start outline-none transition-all" placeholder="Doe" type="text"/>
+        </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+        <div class="space-y-xs">
+            <label class="font-label-caps text-[11px] text-text-muted px-1">EMAIL ADDRESS</label>
+            <input id="email" required class="w-full bg-white border border-outline-variant/40 rounded-xl px-md py-sm focus:ring-2 focus:ring-ocean-gradient-start/20 focus:border-ocean-gradient-start outline-none transition-all" placeholder="john.doe@example.com" type="email"/>
+        </div>
+        <div class="space-y-xs">
+            <label class="font-label-caps text-[11px] text-text-muted px-1">PHONE NUMBER</label>
+            <input id="phone" required pattern="[0-9]{10}" class="w-full bg-white border border-outline-variant/40 rounded-xl px-md py-sm focus:ring-2 focus:ring-ocean-gradient-start/20 focus:border-ocean-gradient-start outline-none transition-all" placeholder="9876543210" type="tel"/>
+        </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+        <div class="space-y-xs">
+            <label class="font-label-caps text-[11px] text-text-muted px-1">COUNTRY</label>
+            <input id="country" required class="w-full bg-white border border-outline-variant/40 rounded-xl px-md py-sm focus:ring-2 focus:ring-ocean-gradient-start/20 focus:border-ocean-gradient-start outline-none transition-all" placeholder="United States" type="text"/>
+        </div>
+        <div class="space-y-xs">
+            <label class="font-label-caps text-[11px] text-text-muted px-1">PASSPORT NUMBER</label>
+            <input id="passportNumber" required pattern="[A-Z0-9]{8,15}" class="w-full bg-white border border-outline-variant/40 rounded-xl px-md py-sm focus:ring-2 focus:ring-ocean-gradient-start/20 focus:border-ocean-gradient-start outline-none transition-all" placeholder="US12345678" type="text"/>
+        </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+        <div class="space-y-xs">
+            <label class="font-label-caps text-[11px] text-text-muted px-1">CHECK-IN DATE</label>
+            <input id="checkInDate" required class="w-full bg-white border border-outline-variant/40 rounded-xl px-md py-sm focus:ring-2 focus:ring-ocean-gradient-start/20 focus:border-ocean-gradient-start outline-none transition-all" type="date"/>
+        </div>
+        <div class="space-y-xs">
+            <label class="font-label-caps text-[11px] text-text-muted px-1">CHECK-OUT DATE</label>
+            <input id="checkOutDate" required class="w-full bg-white border border-outline-variant/40 rounded-xl px-md py-sm focus:ring-2 focus:ring-ocean-gradient-start/20 focus:border-ocean-gradient-start outline-none transition-all" type="date"/>
+        </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+        <div class="space-y-xs">
+            <label class="font-label-caps text-[11px] text-text-muted px-1">ROOM NUMBER</label>
+            <input id="roomNumber" required class="w-full bg-white border border-outline-variant/40 rounded-xl px-md py-sm focus:ring-2 focus:ring-ocean-gradient-start/20 focus:border-ocean-gradient-start outline-none transition-all" placeholder="101" type="text"/>
+        </div>
+    </div>
+</form>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<div class="bg-surface-card p-lg rounded-2xl border border-outline-variant/30 shadow-sm flex items-center gap-md">
+<div class="p-md bg-ocean-gradient-start/10 rounded-full text-ocean-gradient-start">
+<span class="material-symbols-outlined text-[32px]" aria-hidden="true">support_agent</span>
+</div>
+<div>
+<p class="font-title-md text-title-md">24/7 Concierge</p>
+<p class="font-body-sm text-text-muted">Dedicated support for your trip.</p>
+</div>
+</div>
+<div class="bg-surface-card p-lg rounded-2xl border border-outline-variant/30 shadow-sm flex items-center gap-md">
+<div class="p-md bg-ocean-gradient-end/10 rounded-full text-ocean-gradient-end">
+<span class="material-symbols-outlined text-[32px]" aria-hidden="true">security</span>
+</div>
+<div>
+<p class="font-title-md text-title-md">Safe Booking</p>
+<p class="font-body-sm text-text-muted">Protected by industry encryption.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Payment & Breakdown -->
+<div class="lg:col-span-5 space-y-lg">
+<!-- Price Breakdown -->
+<section class="bg-surface-card border border-outline-variant/30 rounded-2xl shadow-sm p-lg">
+<h3 class="font-title-md text-title-md mb-lg">Payment Summary</h3>
+<div class="space-y-md mb-lg">
+<div class="flex justify-between font-body-md">
+<span class="text-text-muted" id="summaryPackageName">Package Fare</span>
+<span class="text-on-surface font-semibold" id="summaryBasePrice">$0.00</span>
+</div>
+<div class="flex justify-between font-body-md">
+<span class="text-text-muted">Resort Taxes &amp; Fees (8%)</span>
+<span class="text-on-surface font-semibold" id="summaryTaxes">$0.00</span>
+</div>
+<div class="pt-md border-t border-outline-variant/30 flex justify-between items-end">
+<div>
+<p class="font-label-caps text-label-caps text-text-muted uppercase">Total Amount</p>
+<p class="font-display-xl text-headline-lg text-primary" id="summaryTotal">$0.00</p>
+</div>
+<p class="font-body-sm text-ocean-gradient-end flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]" data-icon="savings">savings</span> Saved $120.00
+                            </p>
+</div>
+</div>
+</section>
+<!-- Payment Method Section -->
+<section class="bg-surface-card border border-outline-variant/30 rounded-2xl shadow-md p-lg relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-ocean-gradient-start/5 rounded-full -mr-16 -mt-16 blur-3xl"></div>
+<div class="flex justify-between items-center mb-lg">
+<h3 class="font-title-md text-title-md">Payment Details</h3>
+<div class="flex gap-md">
+  <button type="button" id="pay-visa" onclick="selectPaymentMethod('visa')" class="p-2 border border-primary rounded-lg bg-surface-container-low hover:bg-surface-container transition-all">
+    <img alt="Visa" class="h-4" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtGdZeuhSHvI_Pq1_dzms06_1TZ1drsGFL95n8Xylm20cuW7HHu-jJUEejV2JBTp8frX29G6aL4nhLyjRQLOOwoI6rja__7-DBmh2YBrQEya6RaUnhFlZPj5mQkoTrNKhJdPQYr1GzlQY4dBVRTMMraIzFwTGcEea-paPROJ70kA64MYpwNYADIGle3hYOniMdHECoXZwecM4Q6wej47_sDJYxCaTJiPx90Ee7UowBLEISxDo8tv8IBDp4vAx9ua6V1mHrcgAnlPM"/>
+  </button>
+  <button type="button" id="pay-mastercard" onclick="selectPaymentMethod('mastercard')" class="p-2 border border-outline-variant/40 rounded-lg hover:bg-surface-container transition-all">
+    <img alt="Mastercard" class="h-4" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAljg6q7Co2FB9QCDMKVgf6GH1AyBoGimU1mFYrMDbl3IrMS7kBN_A3gXWDPuneZZSwBiXfpeEhoybGU7KnhQ6PvBZwGE-J-SBab0SafOwUnE4uYFLMRHL7yNZZUC7dJjCIQ8DVpVQsI09gooRJxkR7mDqTk7zlv3xmFb54gJjzSOZ8QG3-vzd51wRSPhGSoZev1el2rV1_JFKsLahML9fg_ikN8ZfIoM_-GjjW_vmb2JqJ6SrSoyuJWAmQRCQWzckT10WFPg0ZkWw"/>
+  </button>
+</div>
+</div>
+<form class="space-y-md" id="payment-form" onsubmit="event.preventDefault()">
+<div class="space-y-xs">
+<label class="font-label-caps text-label-caps text-text-muted px-1">Cardholder Name</label>
+<input required class="w-full bg-white border border-outline-variant/40 rounded-xl px-md py-sm focus:ring-2 focus:ring-ocean-gradient-start/20 focus:border-ocean-gradient-start outline-none transition-all" placeholder="Johnathan Doe" type="text"/>
+</div>
+<div class="space-y-xs">
+<label class="font-label-caps text-label-caps text-text-muted px-1">Card Number</label>
+<div class="relative">
+<input required pattern="[0-9\s]{13,19}" class="w-full bg-white border border-outline-variant/40 rounded-xl px-md py-sm pr-12 focus:ring-2 focus:ring-ocean-gradient-start/20 focus:border-ocean-gradient-start outline-none transition-all" placeholder="**** **** **** 4421" type="text"/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-text-muted" aria-hidden="true">credit_card</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-md">
+<div class="space-y-xs">
+<label class="font-label-caps text-label-caps text-text-muted px-1">Expiry Date</label>
+<input required pattern="(0[1-9]|1[0-2])\/[0-9]{2}" class="w-full bg-white border border-outline-variant/40 rounded-xl px-md py-sm focus:ring-2 focus:ring-ocean-gradient-start/20 focus:border-ocean-gradient-start outline-none transition-all" placeholder="MM/YY" type="text"/>
+</div>
+<div class="space-y-xs">
+<label class="font-label-caps text-label-caps text-text-muted px-1">CVV</label>
+<input required pattern="[0-9]{3,4}" class="w-full bg-white border border-outline-variant/40 rounded-xl px-md py-sm focus:ring-2 focus:ring-ocean-gradient-start/20 focus:border-ocean-gradient-start outline-none transition-all" placeholder="***" type="password"/>
+</div>
+</div>
+<div class="hidden animate-in fade-in slide-in-from-top-4 duration-500" id="payment-status-container">
+<div class="flex items-center gap-md p-md bg-tertiary-container/10 border border-tertiary-container/30 rounded-xl" id="status-pending">
+<div class="w-6 h-6 border-2 border-tertiary-container border-t-transparent rounded-full animate-spin"></div>
+<p class="text-on-tertiary-container font-body-sm">Processing transaction with bank...</p>
+</div>
+<div class="hidden flex items-center justify-between p-md bg-secondary-container/10 border border-secondary-container/30 rounded-xl" id="status-success">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-ocean-gradient-end text-[28px]" aria-hidden="true">check_circle</span>
+<div>
+<p class="text-on-secondary-container font-bold font-body-md">Payment Successful</p>
+<p class="text-on-secondary-container/70 text-xs">Auth Code: TH-UX-8821</p>
+</div>
+</div>
+<button class="text-on-secondary-container hover:bg-on-secondary-container/10 p-xs rounded-full transition-all" type="button" aria-label="Download Invoice">
+<span class="material-symbols-outlined" aria-hidden="true">download</span>
+</button>
+</div>
+</div>
+<button class="w-full bg-gradient-to-r from-ocean-gradient-start to-ocean-gradient-end text-white font-title-md py-lg rounded-xl shadow-lg hover:shadow-xl hover:scale-[1.01] active:scale-95 transition-all mt-lg flex items-center justify-center gap-sm" id="pay-button" onclick="handleBookingSubmit()" type="button">
+                            Confirm and Pay
+                        </button>
+</form>
+<div class="mt-lg pt-lg border-t border-outline-variant/20 flex flex-col gap-sm">
+<button class="w-full flex justify-between items-center px-lg py-md bg-surface-container-low hover:bg-surface-container border border-outline-variant/20 rounded-xl transition-all" aria-label="Download full invoice PDF">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-text-muted" aria-hidden="true">receipt</span>
+<span class="font-body-md text-on-surface">Download Full Invoice</span>
+</div>
+<span class="material-symbols-outlined text-text-muted" aria-hidden="true">chevron_right</span>
+</button>
+<p class="text-center font-label-caps text-label-caps text-text-muted mt-md">By paying, you agree to our <a class="underline" href="terms.html">Terms of Service</a></p>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-xl px-lg mt-auto flex flex-col items-center gap-md bg-deep-navy dark:bg-black">
+<span class="font-display-xl text-display-xl font-bold text-white">Tourism Hub</span>
+<div class="flex flex-wrap justify-center gap-xl mt-md">
+<a class="font-label-caps text-label-caps text-outline-variant hover:text-ocean-gradient-start transition-colors" href="about.html">About Us</a>
+<a class="font-label-caps text-label-caps text-outline-variant hover:text-ocean-gradient-start transition-colors" href="contact.html">Contact Us</a>
+<a class="font-label-caps text-label-caps text-outline-variant hover:text-ocean-gradient-start transition-colors" href="index.html#faq">FAQ</a>
+<a class="font-label-caps text-label-caps text-outline-variant hover:text-ocean-gradient-start transition-colors" href="index.html#support">Support</a>
+<a class="font-label-caps text-label-caps text-outline-variant hover:text-ocean-gradient-start transition-colors" href="terms.html#cancellation">Cancellation Policy</a>
+<a class="font-label-caps text-label-caps text-outline-variant hover:text-ocean-gradient-start transition-colors" href="terms.html">Terms of Service</a>
+<a class="font-label-caps text-label-caps text-outline-variant hover:text-ocean-gradient-start transition-colors" href="privacy.html">Privacy Policy</a>
+</div>
+<p class="text-outline-variant font-body-sm text-body-sm mt-lg opacity-60">© 2024 Tourism Hub SaaS. All rights reserved.</p>
+</footer>
+<script src="js/app.js"></script>
+<script>
+        let selectedPkg = null;
+        let selectedPayment = 'visa';
+
+        function selectPaymentMethod(method) {
+            selectedPayment = method;
+            const visaBtn = document.getElementById('pay-visa');
+            const mastercardBtn = document.getElementById('pay-mastercard');
+            
+            if (method === 'visa') {
+                visaBtn.classList.add('border-primary', 'bg-surface-container-low');
+                visaBtn.classList.remove('border-outline-variant/40');
+                mastercardBtn.classList.remove('border-primary', 'bg-surface-container-low');
+                mastercardBtn.classList.add('border-outline-variant/40');
+            } else {
+                mastercardBtn.classList.add('border-primary', 'bg-surface-container-low');
+                mastercardBtn.classList.remove('border-outline-variant/40');
+                visaBtn.classList.remove('border-primary', 'bg-surface-container-low');
+                visaBtn.classList.add('border-outline-variant/40');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuth();
+            
+            const pkgData = sessionStorage.getItem('selectedPackage');
+            if (!pkgData) {
+                showToast('No package selected. Redirecting to packages...', 'info');
+                setTimeout(() => {
+                    window.location.href = 'packages.html';
+                }, 1500);
+                return;
+            }
+            
+            selectedPkg = JSON.parse(pkgData);
+            
+            document.getElementById('packageName').innerText = selectedPkg.name;
+            document.getElementById('packageLocation').innerHTML = `<span class="material-symbols-outlined text-[18px]">location_on</span> ${selectedPkg.country}`;
+            
+            const basePrice = parseFloat(selectedPkg.price);
+            const taxes = basePrice * 0.08;
+            const total = basePrice + taxes;
+            
+            document.getElementById('summaryPackageName').innerText = selectedPkg.name;
+            document.getElementById('summaryBasePrice').innerText = `$${basePrice.toFixed(2)}`;
+            document.getElementById('summaryTaxes').innerText = `$${taxes.toFixed(2)}`;
+            document.getElementById('summaryTotal').innerText = `$${total.toFixed(2)}`;
+            document.getElementById('pay-button').innerText = `Pay $${total.toFixed(2)}`;
+            
+            // Pre-fill email with actual registered email from backend and make it read-only to prevent dashboard mismatch
+            apiRequest('/auth/me').then(meRes => {
+                const emailInput = document.getElementById('email');
+                if (meRes && meRes.data && meRes.data.email) {
+                    emailInput.value = meRes.data.email;
+                    emailInput.readOnly = true;
+                    emailInput.classList.add('bg-slate-100', 'dark:bg-slate-800', 'cursor-not-allowed', 'opacity-80');
+                    emailInput.classList.remove('bg-white');
+                } else {
+                    const username = getUser();
+                    if (username) {
+                        emailInput.value = username + '@example.com';
+                        emailInput.readOnly = true;
+                        emailInput.classList.add('bg-slate-100', 'dark:bg-slate-800', 'cursor-not-allowed', 'opacity-80');
+                        emailInput.classList.remove('bg-white');
+                    }
+                }
+            }).catch(err => {
+                const username = getUser();
+                if (username) {
+                    const emailInput = document.getElementById('email');
+                    emailInput.value = username + '@example.com';
+                    emailInput.readOnly = true;
+                    emailInput.classList.add('bg-slate-100', 'dark:bg-slate-800', 'cursor-not-allowed', 'opacity-80');
+                    emailInput.classList.remove('bg-white');
+                }
+            });
+            
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const checkOut = new Date(tomorrow);
+            checkOut.setDate(checkOut.getDate() + 5);
+            
+            document.getElementById('checkInDate').value = tomorrow.toISOString().split('T')[0];
+            document.getElementById('checkOutDate').value = checkOut.toISOString().split('T')[0];
+            
+            document.getElementById('roomNumber').value = 'R-' + Math.floor(Math.random() * 500 + 100);
+        });
+
+        async function handleBookingSubmit() {
+            const detailsForm = document.getElementById('booking-details-form');
+            const paymentForm = document.getElementById('payment-form');
+            
+            detailsForm.classList.add('submitted');
+            paymentForm.classList.add('submitted');
+            
+            if (!detailsForm.checkValidity()) {
+                detailsForm.reportValidity();
+                return;
+            }
+            if (!paymentForm.checkValidity()) {
+                paymentForm.reportValidity();
+                return;
+            }
+            
+            const cardName = document.querySelector('#payment-form input[placeholder="Johnathan Doe"]').value;
+            const cardNumber = document.querySelector('#payment-form input[placeholder="**** **** **** 4421"]').value;
+            const cardExpiry = document.querySelector('#payment-form input[placeholder="MM/YY"]').value;
+            const cardCvv = document.querySelector('#payment-form input[placeholder="***"]').value;
+
+            if (!cardName || !cardNumber || !cardExpiry || !cardCvv) {
+                showToast('Please fill out all payment details', 'error');
+                return;
+            }
+            
+            const payButton = document.getElementById('pay-button');
+            const statusContainer = document.getElementById('payment-status-container');
+            const statusPending = document.getElementById('status-pending');
+            const statusSuccess = document.getElementById('status-success');
+
+            payButton.disabled = true;
+            payButton.innerText = "Processing...";
+            payButton.classList.add('opacity-70', 'cursor-not-allowed');
+
+            statusContainer.classList.remove('hidden');
+            statusPending.classList.remove('hidden');
+            statusSuccess.classList.add('hidden');
+            
+            const basePrice = parseFloat(selectedPkg.price);
+            const taxes = basePrice * 0.08;
+            const total = basePrice + taxes;
+            
+            const payload = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                country: document.getElementById('country').value,
+                passportNumber: document.getElementById('passportNumber').value,
+                tourPackage: selectedPkg.name,
+                checkInDate: document.getElementById('checkInDate').value,
+                checkOutDate: document.getElementById('checkOutDate').value,
+                roomNumber: document.getElementById('roomNumber').value,
+                totalCost: total
+            };
+            
+            try {
+                await apiRequest('/tourists/register', {
+                    method: 'POST',
+                    body: JSON.stringify(payload)
+                });
+                
+                setTimeout(() => {
+                    statusPending.classList.add('hidden');
+                    statusSuccess.classList.remove('hidden');
+                    payButton.innerText = "Booking Confirmed";
+                    payButton.classList.remove('from-ocean-gradient-start', 'to-ocean-gradient-end');
+                    payButton.classList.add('bg-secondary', 'cursor-default');
+                    
+                    showToast('Booking successful!', 'success');
+                    sessionStorage.removeItem('selectedPackage');
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 2000);
+                }, 2000);
+                
+            } catch (err) {
+                payButton.disabled = false;
+                payButton.innerText = `Pay $${total.toFixed(2)}`;
+                payButton.classList.remove('opacity-70', 'cursor-not-allowed');
+                statusContainer.classList.add('hidden');
+                showToast(`Booking failed: ${err.message}`, 'error');
+            }
+        }
+    </script>
+</body></html>

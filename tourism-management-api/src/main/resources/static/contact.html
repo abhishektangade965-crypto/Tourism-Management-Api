@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html class="scroll-smooth light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Contact Us | Tourism Hub</title>
+    <script>
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="js/tailwind-config.js"></script>
+    <style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.3);
+        }
+        .dark .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .text-gradient {
+            background: linear-gradient(to right, #38bdf8, #22c55e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .btn-primary {
+            background: linear-gradient(to right, #38bdf8, #22c55e);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-primary:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px -5px rgba(56, 189, 248, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary/20 dark:bg-slate-950 dark:text-slate-100 flex flex-col min-h-screen">
+    <!-- TopNavBar -->
+    <header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-lg py-md max-w-container-max mx-auto bg-surface/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-outline-variant/20 shadow-sm">
+        <a href="index.html" class="flex items-center gap-md">
+            <span class="font-display-xl text-display-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-ocean-gradient-start to-ocean-gradient-end">Tourism Hub</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-lg">
+            <a class="font-label-caps text-label-caps text-on-surface-variant dark:text-slate-300 hover:text-primary transition-colors duration-200" href="index.html">Destinations</a>
+            <a class="font-label-caps text-label-caps text-on-surface-variant dark:text-slate-300 hover:text-primary transition-colors duration-200" href="packages.html">Tour Packages</a>
+            <a class="font-label-caps text-label-caps text-on-surface-variant dark:text-slate-300 hover:text-primary transition-colors duration-200" href="dashboard.html">Bookings</a>
+        </nav>
+        <div class="flex items-center gap-md" id="auth-buttons-container">
+            <!-- Dynamic auth links injected by app.js -->
+        </div>
+    </header>
+
+    <main class="flex-grow pt-24 pb-20">
+        <div class="max-w-container-max mx-auto px-lg">
+            <!-- Header -->
+            <div class="text-center max-w-2xl mx-auto mb-16 pt-10">
+                <span class="text-sm font-bold text-primary dark:text-sky-400 uppercase tracking-widest block mb-2">Get in Touch</span>
+                <h1 class="font-display-xl text-4xl md:text-5xl font-bold text-on-surface dark:text-white mb-4">Contact Our Concierge Team</h1>
+                <p class="text-text-muted dark:text-slate-300">We are here to assist you with custom booking arrangements, cancellations, or specific tour requests 24/7.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                <!-- Contact Info (5 columns) -->
+                <div class="lg:col-span-5 space-y-8">
+                    <div class="glass-panel p-8 rounded-3xl shadow-sm space-y-6">
+                        <h3 class="text-2xl font-bold text-on-surface dark:text-white border-b border-outline-variant/20 pb-4">Office Information</h3>
+                        
+                        <div class="flex gap-4">
+                            <span class="material-symbols-outlined text-primary dark:text-sky-400 p-2 bg-primary/10 rounded-xl">location_on</span>
+                            <div>
+                                <h4 class="font-bold text-on-surface dark:text-white">Headquarters</h4>
+                                <p class="text-sm text-text-muted dark:text-slate-300 mt-1">742 Ocean Drive, Suite 100,<br/>Miami, FL 33139, USA</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4">
+                            <span class="material-symbols-outlined text-primary dark:text-sky-400 p-2 bg-primary/10 rounded-xl">mail</span>
+                            <div>
+                                <h4 class="font-bold text-on-surface dark:text-white">Email Address</h4>
+                                <p class="text-sm text-text-muted dark:text-slate-300 mt-1">
+                                    <a href="mailto:support@tourismhub.com" class="hover:underline text-primary dark:text-sky-400">support@tourismhub.com</a><br/>
+                                    <a href="mailto:bookings@tourismhub.com" class="hover:underline text-primary dark:text-sky-400">bookings@tourismhub.com</a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4">
+                            <span class="material-symbols-outlined text-primary dark:text-sky-400 p-2 bg-primary/10 rounded-xl">call</span>
+                            <div>
+                                <h4 class="font-bold text-on-surface dark:text-white">Phone Number</h4>
+                                <p class="text-sm text-text-muted dark:text-slate-300 mt-1">
+                                    <a href="tel:+13055550199" class="hover:underline">+1 (305) 555-0199</a> (Support)<br/>
+                                    <a href="tel:+13055550190" class="hover:underline">+1 (305) 555-0190</a> (Corporate)
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4">
+                            <span class="material-symbols-outlined text-primary dark:text-sky-400 p-2 bg-primary/10 rounded-xl">schedule</span>
+                            <div>
+                                <h4 class="font-bold text-on-surface dark:text-white">Support Hours</h4>
+                                <p class="text-sm text-text-muted dark:text-slate-300 mt-1">
+                                    Concierge Line: 24/7/365<br/>
+                                    Billing & Admin: Mon - Fri, 9:00 AM - 6:00 PM EST
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form (7 columns) -->
+                <div class="lg:col-span-7">
+                    <form id="contact-form" onsubmit="handleContactSubmit(event)" class="glass-panel p-8 md:p-10 rounded-3xl shadow-lg space-y-6">
+                        <h3 class="text-2xl font-bold text-on-surface dark:text-white border-b border-outline-variant/20 pb-4">Send Us a Message</h3>
+                        
+                        <div class="space-y-xs">
+                            <label class="font-label-caps text-xs text-text-muted dark:text-slate-400 px-1">Your Name</label>
+                            <input id="contact-name" required class="w-full bg-white dark:bg-slate-900 border border-outline-variant/40 dark:border-slate-800 rounded-xl px-md py-sm focus:ring-2 focus:ring-primary/20 outline-none transition-all dark:text-white" placeholder="e.g. Johnathan Doe" type="text"/>
+                        </div>
+
+                        <div class="space-y-xs">
+                            <label class="font-label-caps text-xs text-text-muted dark:text-slate-400 px-1">Email Address</label>
+                            <input id="contact-email" required class="w-full bg-white dark:bg-slate-900 border border-outline-variant/40 dark:border-slate-800 rounded-xl px-md py-sm focus:ring-2 focus:ring-primary/20 outline-none transition-all dark:text-white" placeholder="e.g. john@example.com" type="email"/>
+                        </div>
+
+                        <div class="space-y-xs">
+                            <label class="font-label-caps text-xs text-text-muted dark:text-slate-400 px-1">Message</label>
+                            <textarea id="contact-message" required rows="5" class="w-full bg-white dark:bg-slate-900 border border-outline-variant/40 dark:border-slate-800 rounded-xl px-md py-sm focus:ring-2 focus:ring-primary/20 outline-none transition-all dark:text-white" placeholder="Tell us about your travel plans or query..."></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-gradient-to-r from-ocean-gradient-start to-ocean-gradient-end text-white font-title-md py-md rounded-xl shadow-lg hover:shadow-xl hover:scale-[1.01] active:scale-95 transition-all flex items-center justify-center gap-sm">
+                            <span class="material-symbols-outlined">send</span> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- FAQ Section -->
+            <section id="faq" class="mt-24 max-w-4xl mx-auto space-y-8">
+                <h3 class="text-3xl font-bold text-center text-on-surface dark:text-white">Frequently Asked Questions</h3>
+                <div class="space-y-4">
+                    <details class="glass-panel p-6 rounded-2xl group cursor-pointer" open>
+                        <summary class="font-bold text-lg text-on-surface dark:text-white flex justify-between items-center outline-none list-none">
+                            How do I cancel my tour package booking?
+                            <span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+                        </summary>
+                        <p class="text-text-muted dark:text-slate-300 mt-3 text-sm leading-relaxed">
+                            You can cancel your bookings directly through your Customer Dashboard. Log in, find your booking in the "Upcoming Trips" or history, and click "Cancel". Alternatively, contact our 24/7 concierge lines. Diffs apply depending on your time to departure.
+                        </p>
+                    </details>
+                    <details class="glass-panel p-6 rounded-2xl group cursor-pointer">
+                        <summary class="font-bold text-lg text-on-surface dark:text-white flex justify-between items-center outline-none list-none">
+                            What is the refund policy?
+                            <span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+                        </summary>
+                        <p class="text-text-muted dark:text-slate-300 mt-3 text-sm leading-relaxed">
+                            Cancellations made 14 days or more before the check-in date receive a 100% refund. Cancellations made between 7 and 13 days receive a 50% refund. Cancellations made under 7 days are non-refundable.
+                        </p>
+                    </details>
+                    <details class="glass-panel p-6 rounded-2xl group cursor-pointer">
+                        <summary class="font-bold text-lg text-on-surface dark:text-white flex justify-between items-center outline-none list-none">
+                            Are flights included in the price?
+                            <span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+                        </summary>
+                        <p class="text-text-muted dark:text-slate-300 mt-3 text-sm leading-relaxed">
+                            Flight inclusions depend on the specific package. Luxury tier packages (like Maldives Serenity Escape) include domestic flights, whereas adventure treks do not. Please read the package details in the "Tour Packages" catalog before booking.
+                        </p>
+                    </details>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full py-xl px-lg mt-auto flex flex-col items-center gap-md bg-deep-navy dark:bg-black text-white">
+        <div class="max-w-container-max w-full flex flex-col md:flex-row justify-between items-start md:items-center gap-xl border-b border-white/10 pb-xl mb-xl">
+            <div class="flex flex-col gap-sm">
+                <span class="font-display-xl text-display-xl font-bold text-white">Tourism Hub</span>
+                <p class="text-outline-variant font-body-sm text-body-sm max-w-xs">Global tourism management platform redefining the luxury travel experience through intelligent logistics.</p>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-xl">
+                <div class="flex flex-col gap-md">
+                    <h5 class="text-white font-bold font-label-caps text-label-caps">Company</h5>
+                    <a class="text-outline-variant hover:text-ocean-gradient-start transition-colors font-body-sm text-body-sm" href="about.html">About Us</a>
+                    <a class="text-outline-variant hover:text-ocean-gradient-start transition-colors font-body-sm text-body-sm" href="contact.html">Contact</a>
+                </div>
+                <div class="flex flex-col gap-md">
+                    <h5 class="text-white font-bold font-label-caps text-label-caps">Support</h5>
+                    <a class="text-outline-variant hover:text-ocean-gradient-start transition-colors font-body-sm text-body-sm" href="contact.html#faq">FAQ</a>
+                    <a class="text-outline-variant hover:text-ocean-gradient-start transition-colors font-body-sm text-body-sm" href="contact.html">Support</a>
+                    <a class="text-outline-variant hover:text-ocean-gradient-start transition-colors font-body-sm text-body-sm" href="terms.html#cancellation">Cancellation Policy</a>
+                </div>
+                <div class="flex flex-col gap-md">
+                    <h5 class="text-white font-bold font-label-caps text-label-caps">Legal</h5>
+                    <a class="text-outline-variant hover:text-ocean-gradient-start transition-colors font-body-sm text-body-sm" href="terms.html">Terms of Service</a>
+                    <a class="text-outline-variant hover:text-ocean-gradient-start transition-colors font-body-sm text-body-sm" href="privacy.html">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+        <div class="w-full text-center">
+            <p class="text-outline-variant font-body-sm text-body-sm">© 2026 Tourism Hub SaaS. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="js/app.js"></script>
+    <script>
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('contact-name').value.trim();
+            const email = document.getElementById('contact-email').value.trim();
+            const message = document.getElementById('contact-message').value.trim();
+
+            if (!name || !email || !message) {
+                showToast("All fields are required.", "error");
+                return;
+            }
+
+            // Simple email validation regex check
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showToast("Please enter a valid email address.", "error");
+                return;
+            }
+
+            // Simulate form submission
+            showToast("Submitting your message...", "info");
+            setTimeout(() => {
+                showToast("Message sent successfully! Our team will contact you shortly.", "success");
+                document.getElementById('contact-form').reset();
+            }, 1500);
+        }
+    </script>
+</body>
+</html>

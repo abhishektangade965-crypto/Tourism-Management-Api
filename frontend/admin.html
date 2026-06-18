@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tourism Hub | Admin Management Suite</title>
+<script>
+    (function() {
+        const theme = localStorage.getItem('theme') || 'light';
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+        } else {
+            document.documentElement.classList.add('light');
+            document.documentElement.classList.remove('dark');
+        }
+    })();
+</script>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "text-muted": "#64748b",
+                    "on-primary-container": "#004965",
+                    "on-background": "#191c1e",
+                    "deep-navy": "#0f172a",
+                    "outline": "#6e7980",
+                    "inverse-on-surface": "#eff1f3",
+                    "outline-variant": "#bdc8d1",
+                    "on-error": "#ffffff",
+                    "secondary-fixed": "#6bff8f",
+                    "tertiary-fixed-dim": "#ffb960",
+                    "text-main": "#1e293b",
+                    "on-error-container": "#93000a",
+                    "on-surface": "#191c1e",
+                    "on-tertiary-fixed": "#2a1700",
+                    "on-secondary-container": "#007432",
+                    "surface-variant": "#e0e3e5",
+                    "error": "#ba1a1a",
+                    "on-primary-fixed": "#001e2c",
+                    "primary-fixed-dim": "#7bd0ff",
+                    "surface-bright": "#f7f9fb",
+                    "surface": "#f7f9fb",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed-dim": "#4ae176",
+                    "surface-dim": "#d8dadc",
+                    "on-secondary-fixed": "#002109",
+                    "ocean-gradient-start": "#38bdf8",
+                    "on-primary-fixed-variant": "#004c69",
+                    "tertiary-container": "#f1a02b",
+                    "surface-container-low": "#f2f4f6",
+                    "on-primary": "#ffffff",
+                    "inverse-primary": "#7bd0ff",
+                    "on-surface-variant": "#3e484f",
+                    "primary-fixed": "#c4e7ff",
+                    "ocean-gradient-end": "#22c55e",
+                    "primary-container": "#38bdf8",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed-variant": "#005321",
+                    "tertiary": "#855300",
+                    "background": "#f7f9fb",
+                    "surface-tint": "#00668a",
+                    "surface-container": "#eceef0",
+                    "secondary-container": "#6bff8f",
+                    "surface-container-high": "#e6e8ea",
+                    "secondary": "#006e2f",
+                    "on-tertiary-container": "#613b00",
+                    "error-container": "#ffdad6",
+                    "primary": "#00668a",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-highest": "#e0e3e5",
+                    "surface-card": "#ffffff",
+                    "inverse-surface": "#2d3133",
+                    "tertiary-fixed": "#ffddb8",
+                    "on-tertiary-fixed-variant": "#653e00"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "48px",
+                    "lg": "24px",
+                    "container-max": "1280px",
+                    "gutter": "24px",
+                    "base": "4px",
+                    "xs": "4px",
+                    "md": "16px",
+                    "sm": "8px"
+            },
+            "fontFamily": {
+                    "label-caps": ["Inter"],
+                    "display-xl": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "title-md": ["Plus Jakarta Sans"],
+                    "body-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "display-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { background-color: #f7f9fb; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.05);
+        }
+        .sidebar-active {
+            background: rgba(0, 102, 138, 0.1);
+            border-left: 4px solid #00668a;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #bdc8d1; border-radius: 10px; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Dark mode custom overrides */
+        .dark body {
+            background-color: #020617 !important;
+            color: #f1f5f9 !important;
+        }
+        .dark header, .dark aside {
+            background-color: #0f172a !important;
+            border-color: #1e293b !important;
+        }
+        .dark .glass-card, .dark .bg-surface-container-low, .dark .bg-surface-container-lowest {
+            background-color: #0f172a !important;
+            border-color: #1e293b !important;
+        }
+        .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6, .dark .text-on-surface {
+            color: #ffffff !important;
+        }
+        .dark p, .dark span:not(.bg-clip-text):not(.text-on-secondary-container):not(.text-on-tertiary-container):not(.text-on-error-container), .dark label, .dark td, .dark th, .dark .text-text-muted {
+            color: #cbd5e1 !important;
+        }
+        .dark input, .dark select {
+            background-color: #1e293b !important;
+            border-color: #334155 !important;
+            color: #ffffff !important;
+        }
+        .dark tr:hover {
+            background-color: rgba(56, 189, 248, 0.05) !important;
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-background selection:bg-primary/20">
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-full w-60 z-40 flex flex-col py-lg px-md bg-surface border-r border-outline-variant/30 shadow-md">
+<div class="mb-xl px-sm">
+<h1 class="font-display-xl text-display-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-ocean-gradient-start to-ocean-gradient-end leading-tight">Tourism Hub</h1>
+<p class="font-label-caps text-label-caps text-text-muted mt-1 uppercase">Management Suite</p>
+</div>
+<nav class="flex-1 space-y-1 overflow-y-auto custom-scrollbar">
+<!-- Dashboard (Active) -->
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-primary bg-primary-container/20 font-bold transition-all scale-[0.98]" href="admin.html">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-caps text-label-caps">Dashboard</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-text-muted hover:bg-surface-container transition-all" href="dashboard.html">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-label-caps text-label-caps">My Bookings</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-text-muted hover:bg-surface-container transition-all" href="packages.html">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-label-caps text-label-caps">Explore</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-text-muted hover:bg-surface-container transition-all" href="admin.html">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-caps text-label-caps">Users</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-text-muted hover:bg-surface-container transition-all" href="packages.html">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-caps text-label-caps">Tour Packages</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-text-muted hover:bg-surface-container transition-all" href="admin.html">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-caps text-label-caps">Analytics</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-text-muted hover:bg-surface-container transition-all" href="dashboard.html">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-caps text-label-caps">Payments</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-text-muted hover:bg-surface-container transition-all" href="dashboard.html">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-caps text-label-caps">Profile</span>
+</a>
+</nav>
+<div class="mt-auto pt-lg border-t border-outline-variant/20">
+<button onclick="window.location.href='packages.html'" class="w-full bg-gradient-to-r from-ocean-gradient-start to-ocean-gradient-end text-white py-sm px-md rounded-lg font-bold flex items-center justify-center gap-sm hover:scale-[1.02] transition-transform shadow-lg shadow-ocean-gradient-start/20">
+<span class="material-symbols-outlined">add</span>
+<span>New Booking</span>
+</button>
+<div class="flex items-center gap-sm mt-lg px-sm">
+<img alt="Admin Avatar" class="w-8 h-8 rounded-full border border-primary/20" data-alt="A professional headshot of a corporate male administrator in his 40s wearing a crisp white shirt and a modern blue blazer. The image is set against a blurred, high-end office background with soft cinematic lighting that highlights clear skin and a friendly, confident expression. The overall color palette is dominated by clean whites and professional blues, matching a premium modern corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCi-O3IWZ9ZM3Fqv3a9n_DenJiT8pvbtjMWAoskjjoyqDjEgwb1d_5iuQbJAitxDYx99iKryqyZPquzCZdgzlKPoqN2cYbKgx364uDvVMAtaQRzggRu-IxaqplZdfjQjuWUjFcQ4U-vc9mnWXRaNP97-iGpLGjy5dxDuVUykZ2RijK_IdJAMCOvdgyTXb58paEelTV2cC9lreilC2f58JUywuYaeVfNU4C8-60fGMvUJo_ZIqQDrbxDUdqwewrwUOOWxkdWAmEheXA"/>
+<div>
+<p id="sidebar-admin-username" class="font-label-caps text-label-caps text-on-surface">Alex Thompson</p>
+<p class="font-body-sm text-[10px] text-text-muted">Global Admin</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-60 min-h-screen">
+<!-- Top Bar -->
+<header class="sticky top-0 z-30 flex items-center justify-between px-xl py-md bg-surface/80 backdrop-blur-md border-b border-outline-variant/20">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Overview</h2>
+<p class="font-body-sm text-text-muted">Welcome back, Admin. Here's what's happening today.</p>
+</div>
+<div class="flex items-center gap-lg">
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="pl-xl pr-md py-sm bg-surface-container rounded-full border-none focus:ring-2 focus:ring-primary/50 text-body-sm w-64" placeholder="Search data, bookings..." type="text"/>
+</div>
+<div class="flex items-center gap-sm">
+<!-- Notifications Wrapper -->
+<div class="relative">
+    <button onclick="toggleNotificationsDropdown()" class="p-sm rounded-full hover:bg-surface-container text-outline transition-colors relative">
+        <span class="material-symbols-outlined">notifications</span>
+        <span id="notif-badge" class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full hidden"></span>
+    </button>
+    <!-- Notifications Dropdown -->
+    <div id="notifications-dropdown" class="absolute right-0 mt-2 w-80 bg-surface border border-outline-variant/30 rounded-2xl shadow-xl z-50 p-sm hidden glass-card text-on-surface">
+        <div class="flex items-center justify-between px-md py-sm border-b border-outline-variant/10">
+            <span class="font-bold text-xs uppercase tracking-wider text-primary">Notifications</span>
+            <button onclick="markAllNotificationsAsRead()" class="text-[10px] text-primary font-bold hover:underline">Mark all as read</button>
+        </div>
+        <div id="notifications-list" class="max-h-64 overflow-y-auto py-xs custom-scrollbar">
+            <!-- Dynamic Notifications -->
+        </div>
+        <div class="px-md py-sm border-t border-outline-variant/10 flex justify-between">
+            <button onclick="clearNotifications()" class="text-[10px] text-error font-bold hover:underline">Clear all</button>
+            <button onclick="toggleNotificationsDropdown()" class="text-[10px] text-text-muted hover:underline">Close</button>
+        </div>
+    </div>
+</div>
+<!-- Settings Button -->
+<button onclick="toggleSettingsDrawer()" class="p-sm rounded-full hover:bg-surface-container text-outline transition-colors">
+    <span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Dashboard Content -->
+<div class="p-xl space-y-xl max-w-container-max mx-auto">
+<!-- Stats Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg">
+<!-- Total Revenue -->
+<div class="glass-card p-lg rounded-2xl flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div class="p-sm bg-primary/10 text-primary rounded-lg">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<span class="text-secondary font-label-caps text-label-caps flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +12.5%
+                        </span>
+</div>
+<div class="mt-lg">
+<p class="font-label-caps text-label-caps text-text-muted">Total Revenue</p>
+<h3 id="metric-revenue" class="font-headline-lg text-headline-lg text-on-surface">$0.00</h3>
+</div>
+</div>
+<!-- Active Tourists -->
+<div class="glass-card p-lg rounded-2xl flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div class="p-sm bg-secondary-container/20 text-secondary rounded-lg">
+<span class="material-symbols-outlined">group</span>
+</div>
+<span class="text-secondary font-label-caps text-label-caps flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +5.2%
+                        </span>
+</div>
+<div class="mt-lg">
+<p class="font-label-caps text-label-caps text-text-muted">Active Tourists</p>
+<h3 id="metric-active" class="font-headline-lg text-headline-lg text-on-surface">0</h3>
+</div>
+</div>
+<!-- Pending Bookings -->
+<div class="glass-card p-lg rounded-2xl flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div class="p-sm bg-tertiary-container/20 text-tertiary rounded-lg">
+<span class="material-symbols-outlined">pending_actions</span>
+</div>
+<span class="text-error font-label-caps text-label-caps flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">trending_down</span> -2.4%
+                        </span>
+</div>
+<div class="mt-lg">
+<p class="font-label-caps text-label-caps text-text-muted">Pending Bookings</p>
+<h3 id="metric-pending" class="font-headline-lg text-headline-lg text-on-surface">0</h3>
+</div>
+</div>
+<!-- Conversion Rate -->
+<div class="glass-card p-lg rounded-2xl flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div class="p-sm bg-ocean-gradient-start/10 text-ocean-gradient-start rounded-lg">
+<span class="material-symbols-outlined">monitoring</span>
+</div>
+<span class="text-secondary font-label-caps text-label-caps flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +1.8%
+                        </span>
+</div>
+<div class="mt-lg">
+<p class="font-label-caps text-label-caps text-text-muted">Conversion Rate</p>
+<h3 class="font-headline-lg text-headline-lg text-on-surface">3.42%</h3>
+</div>
+</div>
+</section>
+<!-- Charts & Analytics Section -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-lg">
+<!-- Revenue Trends Line Chart -->
+<div class="glass-card p-lg rounded-2xl lg:col-span-2">
+<div class="flex items-center justify-between mb-xl">
+<div>
+<h4 class="font-title-md text-title-md text-on-surface">Revenue Trends</h4>
+<p class="font-body-sm text-text-muted">Monthly financial performance overview</p>
+</div>
+<select class="bg-surface-container-low border-none rounded-lg font-label-caps text-label-caps px-md py-sm focus:ring-primary">
+<option>Last 6 Months</option>
+<option>Last Year</option>
+</select>
+</div>
+<div class="h-64 relative flex items-end gap-base">
+<!-- Chart Mockup (Pure CSS/SVG) -->
+<div class="absolute inset-0 flex flex-col justify-between opacity-10 pointer-events-none">
+<div class="border-b border-outline"></div>
+<div class="border-b border-outline"></div>
+<div class="border-b border-outline"></div>
+<div class="border-b border-outline"></div>
+</div>
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 1000 300">
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#38bdf8" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#38bdf8" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<path d="M0,250 Q100,180 200,220 T400,100 T600,150 T800,50 T1000,80 L1000,300 L0,300 Z" fill="url(#chartGradient)"></path>
+<path d="M0,250 Q100,180 200,220 T400,100 T600,150 T800,50 T1000,80" fill="none" stroke="#00668a" stroke-linecap="round" stroke-width="4"></path>
+</svg>
+<div class="absolute bottom-0 w-full flex justify-between px-md pt-md font-label-caps text-[10px] text-text-muted">
+<span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span>
+</div>
+</div>
+</div>
+<!-- Popular Destinations Pie Chart -->
+<div class="glass-card p-lg rounded-2xl">
+<h4 class="font-title-md text-title-md text-on-surface mb-xl">Market Share</h4>
+<div class="flex flex-col items-center justify-center space-y-lg">
+<div class="relative w-48 h-48 rounded-full border-[16px] border-surface-container flex items-center justify-center">
+<div class="absolute inset-0 rounded-full border-[16px] border-primary border-t-transparent border-l-transparent transform rotate-45"></div>
+<div class="absolute inset-0 rounded-full border-[16px] border-secondary border-t-transparent border-r-transparent border-b-transparent transform -rotate-12"></div>
+<div class="text-center">
+<span class="font-headline-lg text-headline-lg text-on-surface leading-none">68%</span>
+<p class="font-label-caps text-[10px] text-text-muted">EUROPE</p>
+</div>
+</div>
+<div class="w-full space-y-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-sm">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span class="font-body-sm text-body-sm">Europe</span>
+</div>
+<span class="font-label-caps text-label-caps">68%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-sm">
+<span class="w-3 h-3 rounded-full bg-secondary"></span>
+<span class="font-body-sm text-body-sm">Asia</span>
+</div>
+<span class="font-label-caps text-label-caps">18%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-sm">
+<span class="w-3 h-3 rounded-full bg-tertiary"></span>
+<span class="font-body-sm text-body-sm">Americas</span>
+</div>
+<span class="font-label-caps text-label-caps">14%</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Recent Bookings Table -->
+<section class="glass-card rounded-2xl overflow-hidden">
+<div class="px-lg py-md flex items-center justify-between border-b border-outline-variant/20">
+<h4 class="font-title-md text-title-md text-on-surface">Recent Bookings</h4>
+<button class="text-primary font-label-caps text-label-caps hover:underline">View All Bookings</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-text-muted">
+<th class="px-lg py-md font-label-caps text-label-caps">Customer</th>
+<th class="px-lg py-md font-label-caps text-label-caps">Destination</th>
+<th class="px-lg py-md font-label-caps text-label-caps">Date</th>
+<th class="px-lg py-md font-label-caps text-label-caps">Amount</th>
+<th class="px-lg py-md font-label-caps text-label-caps">Status</th>
+<th class="px-lg py-md"></th>
+</tr>
+</thead>
+<tbody id="admin-table-body" class="divide-y divide-outline-variant/10">
+<!-- Dynamic bookings rows rendered here -->
+</tbody>
+</table>
+</div>
+</section>
+</div>
+<!-- Footer -->
+<footer class="w-full py-xl px-lg mt-auto flex flex-col items-center gap-md bg-deep-navy">
+<h5 class="font-display-xl text-display-xl font-bold text-white mb-2">Tourism Hub</h5>
+<div class="flex flex-wrap justify-center gap-xl mb-4">
+<a class="font-label-caps text-label-caps text-outline-variant hover:text-ocean-gradient-start transition-colors" href="about.html">About Us</a>
+<a class="font-label-caps text-label-caps text-outline-variant hover:text-ocean-gradient-start transition-colors" href="contact.html">Contact Us</a>
+<a class="font-label-caps text-label-caps text-outline-variant hover:text-ocean-gradient-start transition-colors" href="index.html#faq">FAQ</a>
+<a class="font-label-caps text-label-caps text-outline-variant hover:text-ocean-gradient-start transition-colors" href="index.html#support">Support</a>
+<a class="font-label-caps text-label-caps text-outline-variant hover:text-ocean-gradient-start transition-colors" href="terms.html#cancellation">Cancellation Policy</a>
+<a class="font-label-caps text-label-caps text-outline-variant hover:text-ocean-gradient-start transition-colors" href="terms.html">Terms of Service</a>
+<a class="font-label-caps text-label-caps text-outline-variant hover:text-ocean-gradient-start transition-colors" href="privacy.html">Privacy Policy</a>
+</div>
+<p class="font-body-sm text-body-sm text-outline-variant/60">© 2024 Tourism Hub SaaS. All rights reserved.</p>
+</footer>
+</main>
+<script src="js/app.js"></script>
+<script>
+        // Simple micro-interactions
+        document.querySelectorAll('a, button').forEach(el => {
+            el.addEventListener('mousedown', () => {
+                el.style.transform = 'scale(0.95)';
+            });
+            el.addEventListener('mouseup', () => {
+                el.style.transform = '';
+            });
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = '';
+            });
+        });
+
+        // Search bar focus effect
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('ring-2', 'ring-primary/20');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('ring-2', 'ring-primary/20');
+        });
+
+        // Dynamic load admin data and bindings
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAdminAuth();
+            loadAdminDashboard();
+            initSettings();
+        });
+
+        async function loadAdminDashboard() {
+            try {
+                const username = getUser();
+                if (username) {
+                    document.getElementById('sidebar-admin-username').innerText = username;
+                }
+                
+                const res = await apiRequest('/tourists?size=100');
+                const bookings = res.data.content || [];
+                
+                let totalRevenue = 0;
+                let activeCount = 0;
+                let pendingCount = 0;
+                
+                bookings.forEach(b => {
+                    if (b.bookingStatus === 'CONFIRMED') {
+                        totalRevenue += b.totalCost;
+                    }
+                    if (b.isActive) {
+                        activeCount++;
+                    }
+                    if (b.bookingStatus === 'PENDING') {
+                        pendingCount++;
+                    }
+                });
+                
+                document.getElementById('metric-revenue').innerText = `$${totalRevenue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+                document.getElementById('metric-active').innerText = activeCount;
+                document.getElementById('metric-pending').innerText = pendingCount;
+                
+                const tbody = document.getElementById('admin-table-body');
+                if (bookings.length === 0) {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="6" class="py-8 text-center text-slate-500">No bookings registered in database.</td>
+                        </tr>
+                    `;
+                } else {
+                    tbody.innerHTML = bookings.map(b => {
+                        const statusClass = b.bookingStatus === 'CONFIRMED' ? 'bg-secondary-container/20 text-on-secondary-container border border-secondary-container/30' : 
+                                             b.bookingStatus === 'PENDING' ? 'bg-tertiary-container/20 text-on-tertiary-container border border-tertiary-container/30' : 
+                                             'bg-error-container/20 text-on-error-container border border-error-container/30';
+                        
+                        let actionButtons = '';
+                        if (b.bookingStatus === 'PENDING') {
+                            actionButtons += `
+                                <button onclick="updateStatus(${b.id}, 'confirm', this)" class="px-3 py-1 bg-secondary hover:bg-secondary/90 text-white text-[10px] rounded-lg font-bold hover:scale-[1.03] transition-all mr-1.5 shadow-md">Confirm</button>
+                            `;
+                        }
+                        if (b.bookingStatus !== 'CANCELLED') {
+                            actionButtons += `
+                                <button onclick="updateStatus(${b.id}, 'cancel', this)" class="px-3 py-1 bg-tertiary hover:bg-tertiary/90 text-white text-[10px] rounded-lg font-bold hover:scale-[1.03] transition-all mr-1.5 shadow-md">Cancel</button>
+                            `;
+                        }
+                        actionButtons += `
+                            <button onclick="deleteBooking(${b.id}, this)" class="px-3 py-1 bg-error hover:bg-error/90 text-white text-[10px] rounded-lg font-bold hover:scale-[1.03] transition-all shadow-md">Delete</button>
+                        `;
+                        
+                        return `
+                            <tr class="hover:bg-primary/5 transition-colors group">
+                                <td class="px-lg py-md">
+                                    <div class="flex items-center gap-sm">
+                                        <div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-xs">
+                                            ${b.firstName[0]}${b.lastName[0]}
+                                        </div>
+                                        <div>
+                                            <p class="font-body-sm font-semibold text-on-surface">${b.firstName} ${b.lastName}</p>
+                                            <p class="text-[11px] text-text-muted">${b.email}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-lg py-md">
+                                    <span class="font-body-sm text-on-surface">${b.tourPackage}</span>
+                                </td>
+                                <td class="px-lg py-md font-body-sm text-text-muted">${b.checkInDate}</td>
+                                <td class="px-lg py-md font-body-sm text-on-surface font-bold">$${b.totalCost.toFixed(2)}</td>
+                                <td class="px-lg py-md">
+                                    <span class="px-2.5 py-1 rounded-full ${statusClass} text-[10px] font-bold uppercase tracking-wider">${b.bookingStatus}</span>
+                                </td>
+                                <td class="px-lg py-md text-right">
+                                    <div class="flex justify-end opacity-0 group-hover:opacity-100 transition-opacity">
+                                        ${actionButtons}
+                                    </div>
+                                </td>
+                            </tr>
+                        `;
+                    }).join('');
+                }
+            } catch (err) {
+                showToast(`Failed to load admin dashboard: ${err.message}`, 'error');
+            }
+        }
+
+        async function updateStatus(id, action, btn) {
+            const actionText = action === 'confirm' ? 'confirm' : 'cancel';
+            if (!confirm(`Are you sure you want to ${actionText} this booking?`)) {
+                return;
+            }
+            const originalHtml = btn.innerHTML;
+            btn.disabled = true;
+            btn.classList.add('opacity-75', 'cursor-not-allowed');
+            btn.innerHTML = `<span class="inline-block w-3 h-3 border border-white border-t-transparent rounded-full animate-spin mr-1"></span>`;
+            try {
+                showToast(`Updating booking status...`, 'info');
+                await apiRequest(`/tourists/${id}/${action}`, { method: 'PUT' });
+                showToast(`Booking status updated!`, 'success');
+                loadAdminDashboard();
+            } catch (err) {
+                showToast(`Action failed: ${err.message}`, 'error');
+                btn.disabled = false;
+                btn.classList.remove('opacity-75', 'cursor-not-allowed');
+                btn.innerHTML = originalHtml;
+            }
+        }
+
+        async function deleteBooking(id, btn) {
+            if (!confirm('Are you sure you want to delete this booking permanently?')) {
+                return;
+            }
+            const originalHtml = btn.innerHTML;
+            btn.disabled = true;
+            btn.classList.add('opacity-75', 'cursor-not-allowed');
+            btn.innerHTML = `<span class="inline-block w-3 h-3 border border-white border-t-transparent rounded-full animate-spin mr-1"></span>`;
+            try {
+                showToast('Deleting booking permanently...', 'info');
+                await apiRequest(`/tourists/${id}/permanent`, { method: 'DELETE' });
+                showToast('Booking deleted successfully!', 'success');
+                loadAdminDashboard();
+            } catch (err) {
+                showToast(`Delete failed: ${err.message}`, 'error');
+                btn.disabled = false;
+                btn.classList.remove('opacity-75', 'cursor-not-allowed');
+                btn.innerHTML = originalHtml;
+            }
+        }
+
+        // Notifications state & functions
+        let mockNotifications = [
+            { id: 1, text: "New booking by Emma Watson (Greece Islands Sailing)", read: false, time: "5m ago" },
+            { id: 2, text: "Booking Cancelled by John Doe (Alpine Summit Trek)", read: false, time: "25m ago" },
+            { id: 3, text: "System Scheduler: Expired 3 pending check-outs", read: false, time: "1h ago" }
+        ];
+
+        function toggleNotificationsDropdown() {
+            const dropdown = document.getElementById('notifications-dropdown');
+            dropdown.classList.toggle('hidden');
+        }
+
+        function renderNotifications() {
+            const list = document.getElementById('notifications-list');
+            const badge = document.getElementById('notif-badge');
+            
+            const unreadCount = mockNotifications.filter(n => !n.read).length;
+            if (unreadCount > 0) {
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+            
+            if (mockNotifications.length === 0) {
+                list.innerHTML = `<div class="p-md text-center text-xs text-text-muted">No new notifications</div>`;
+                return;
+            }
+            
+            list.innerHTML = mockNotifications.map(n => `
+                <div class="px-md py-sm hover:bg-primary/5 transition-colors border-b border-outline-variant/5 flex flex-col gap-xs ${n.read ? 'opacity-60' : 'font-semibold'}">
+                    <p class="text-xs text-on-surface">${n.text}</p>
+                    <span class="text-[10px] text-text-muted">${n.time}</span>
+                </div>
+            `).join('');
+        }
+
+        function markAllNotificationsAsRead() {
+            mockNotifications.forEach(n => n.read = true);
+            renderNotifications();
+            showToast("Marked all notifications as read", "success");
+        }
+
+        function clearNotifications() {
+            mockNotifications = [];
+            renderNotifications();
+            showToast("Cleared all notifications", "info");
+        }
+
+        // Settings state & functions
+        function toggleSettingsDrawer() {
+            const drawer = document.getElementById('settings-drawer');
+            const overlay = document.getElementById('settings-drawer-overlay');
+            
+            if (drawer.classList.contains('translate-x-full')) {
+                // Open
+                overlay.classList.remove('hidden');
+                setTimeout(() => {
+                    overlay.classList.remove('bg-black/0');
+                    overlay.classList.add('bg-black/30');
+                    drawer.classList.remove('translate-x-full');
+                }, 10);
+            } else {
+                // Close
+                overlay.classList.remove('bg-black/30');
+                overlay.classList.add('bg-black/0');
+                drawer.classList.add('translate-x-full');
+                setTimeout(() => {
+                    overlay.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        // Initialize Settings from LocalStorage
+        function initSettings() {
+            // Theme / Dark Mode
+            const theme = localStorage.getItem('theme') || 'light';
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+                document.documentElement.classList.remove('light');
+                const btn = document.getElementById('setting-darkmode');
+                if (btn) {
+                    btn.querySelector('span').classList.add('translate-x-6');
+                }
+            } else {
+                document.documentElement.classList.add('light');
+                document.documentElement.classList.remove('dark');
+            }
+            
+            // Auto Refresh
+            const refresh = localStorage.getItem('setting-refresh') === 'true';
+            const refreshBtn = document.getElementById('setting-refresh');
+            if (refreshBtn) {
+                if (refresh) {
+                    refreshBtn.classList.replace('bg-slate-300', 'bg-primary');
+                    refreshBtn.querySelector('span').classList.add('translate-x-6');
+                }
+            }
+            
+            // Language
+            const lang = localStorage.getItem('setting-lang') || 'en';
+            const langSelect = document.getElementById('setting-lang');
+            if (langSelect) langSelect.value = lang;
+            
+            // Log Level
+            const loglevel = localStorage.getItem('setting-loglevel') || 'info';
+            const loglevelSelect = document.getElementById('setting-loglevel');
+            if (loglevelSelect) loglevelSelect.value = loglevel;
+            
+            renderNotifications();
+        }
+
+        function toggleDarkMode() {
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            localStorage.setItem('theme', newTheme);
+            
+            const btn = document.getElementById('setting-darkmode');
+            const handle = btn.querySelector('span');
+            
+            if (newTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+                document.documentElement.classList.remove('light');
+                handle.classList.add('translate-x-6');
+                showToast("Dark mode activated!", "success");
+            } else {
+                document.documentElement.classList.remove('dark');
+                document.documentElement.classList.add('light');
+                handle.classList.remove('translate-x-6');
+                showToast("Light mode activated!", "success");
+            }
+        }
+
+        function toggleAutoRefresh() {
+            const currentVal = localStorage.getItem('setting-refresh') === 'true';
+            const newVal = !currentVal;
+            localStorage.setItem('setting-refresh', newVal);
+            
+            const btn = document.getElementById('setting-refresh');
+            const handle = btn.querySelector('span');
+            
+            if (newVal) {
+                btn.classList.replace('bg-slate-300', 'bg-primary');
+                handle.classList.add('translate-x-6');
+                showToast("Auto refresh enabled (30s)", "success");
+            } else {
+                btn.classList.replace('bg-primary', 'bg-slate-300');
+                handle.classList.remove('translate-x-6');
+                showToast("Auto refresh disabled", "info");
+            }
+        }
+
+        function changeLanguage() {
+            const lang = document.getElementById('setting-lang').value;
+            localStorage.setItem('setting-lang', lang);
+            showToast(`Language changed to ${lang.toUpperCase()}`, "success");
+        }
+
+        function changeLogLevel() {
+            const level = document.getElementById('setting-loglevel').value;
+            localStorage.setItem('setting-loglevel', level);
+            showToast(`Log level set to ${level.toUpperCase()}`, "success");
+        }
+    </script>
+    
+    <!-- Settings Drawer -->
+    <div id="settings-drawer-overlay" onclick="toggleSettingsDrawer()" class="fixed inset-0 z-50 bg-black/0 backdrop-blur-sm hidden transition-all duration-300"></div>
+    <div id="settings-drawer" class="fixed top-0 right-0 h-full w-80 bg-surface/95 border-l border-outline-variant/30 z-50 shadow-2xl p-lg flex flex-col translate-x-full transition-transform duration-300 glass-card">
+        <div class="flex items-center justify-between pb-md border-b border-outline-variant/10 mb-md">
+            <h3 class="font-headline-lg text-lg text-primary">System Settings</h3>
+            <button onclick="toggleSettingsDrawer()" class="text-text-muted hover:text-on-surface p-1 rounded-full hover:bg-surface-container transition-all">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        
+        <div class="flex-1 space-y-lg text-on-surface">
+            <!-- Dark Mode Toggle -->
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="font-title-md text-sm">Dark Mode</p>
+                    <p class="text-xs text-text-muted">Toggle visual dark theme</p>
+                </div>
+                <button id="setting-darkmode" onclick="toggleDarkMode()" class="w-12 h-6 bg-slate-300 dark:bg-primary rounded-full relative p-0.5 transition-colors focus:outline-none">
+                    <span class="w-5 h-5 bg-white rounded-full shadow-md transform translate-x-0 transition-transform block"></span>
+                </button>
+            </div>
+            
+            <!-- Auto Refresh Toggle -->
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="font-title-md text-sm">Auto Refresh</p>
+                    <p class="text-xs text-text-muted">Refresh dashboard data every 30s</p>
+                </div>
+                <button id="setting-refresh" onclick="toggleAutoRefresh()" class="w-12 h-6 bg-slate-300 rounded-full relative p-0.5 transition-colors focus:outline-none">
+                    <span class="w-5 h-5 bg-white rounded-full shadow-md transform translate-x-0 transition-transform block"></span>
+                </button>
+            </div>
+            
+            <!-- Language Selector -->
+            <div class="space-y-sm">
+                <label class="font-title-md text-sm block">Language</label>
+                <select id="setting-lang" onchange="changeLanguage()" class="w-full bg-white dark:bg-slate-800 border border-outline-variant dark:border-slate-700 rounded-lg px-md py-sm text-body-sm focus:ring-2 focus:ring-primary/20 transition-all dark:text-white">
+                    <option value="en">English (US)</option>
+                    <option value="es">Español</option>
+                    <option value="fr">Français</option>
+                </select>
+            </div>
+            
+            <!-- Log Level Selector -->
+            <div class="space-y-sm">
+                <label class="font-title-md text-sm block">Console Log Level</label>
+                <select id="setting-loglevel" onchange="changeLogLevel()" class="w-full bg-white dark:bg-slate-800 border border-outline-variant dark:border-slate-700 rounded-lg px-md py-sm text-body-sm focus:ring-2 focus:ring-primary/20 transition-all dark:text-white">
+                    <option value="info">INFO</option>
+                    <option value="debug">DEBUG</option>
+                    <option value="warn">WARN</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="pt-md border-t border-outline-variant/10">
+            <p class="text-[10px] text-text-muted text-center">Tourism Hub Suite v1.4.2</p>
+        </div>
+    </div>
+</body>
+</html>

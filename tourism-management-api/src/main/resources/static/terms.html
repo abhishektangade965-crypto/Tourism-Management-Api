@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html class="scroll-smooth light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Terms of Service | Tourism Hub</title>
+    <script>
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="js/tailwind-config.js"></script>
+    <style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.3);
+        }
+        .dark .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary/20 dark:bg-slate-950 dark:text-slate-100 flex flex-col min-h-screen">
+    <!-- TopNavBar -->
+    <header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-lg py-md max-w-container-max mx-auto bg-surface/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-outline-variant/20 shadow-sm">
+        <a href="index.html" class="flex items-center gap-md">
+            <span class="font-display-xl text-display-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-ocean-gradient-start to-ocean-gradient-end">Tourism Hub</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-lg">
+            <a class="font-label-caps text-label-caps text-on-surface-variant dark:text-slate-300 hover:text-primary transition-colors duration-200" href="index.html">Destinations</a>
+            <a class="font-label-caps text-label-caps text-on-surface-variant dark:text-slate-300 hover:text-primary transition-colors duration-200" href="packages.html">Tour Packages</a>
+            <a class="font-label-caps text-label-caps text-on-surface-variant dark:text-slate-300 hover:text-primary transition-colors duration-200" href="dashboard.html">Bookings</a>
+        </nav>
+        <div class="flex items-center gap-md" id="auth-buttons-container">
+            <!-- Dynamic auth links injected by app.js -->
+        </div>
+    </header>
+
+    <main class="flex-grow pt-24 pb-20">
+        <div class="max-w-4xl mx-auto px-lg">
+            <!-- Header -->
+            <div class="text-center mb-16 pt-10">
+                <span class="text-sm font-bold text-primary dark:text-sky-400 uppercase tracking-widest block mb-2">Legal Docs</span>
+                <h1 class="font-display-xl text-4xl md:text-5xl font-bold text-on-surface dark:text-white mb-4">Terms of Service</h1>
+                <p class="text-text-muted dark:text-slate-300">Effective Date: June 16, 2026</p>
+            </div>
+
+            <!-- Content -->
+            <div class="glass-panel p-8 md:p-12 rounded-3xl shadow-lg space-y-8 text-sm md:text-base leading-relaxed text-on-surface dark:text-slate-200">
+                <section class="space-y-3">
+                    <h2 class="text-2xl font-bold text-primary dark:text-sky-400">1. Booking Policies</h2>
+                    <p>
+                        All bookings completed via Tourism Hub are subject to package availability and verification. You must submit valid passport details, name records, and contact information. A booking is considered confirmed only upon receipt of full payment and the issuance of a valid booking confirmation code.
+                    </p>
+                </section>
+
+                <section id="cancellation" class="space-y-3">
+                    <h2 class="text-2xl font-bold text-primary dark:text-sky-400">2. Cancellation Rules</h2>
+                    <p>
+                        Travelers can request cancellations directly through their Customer Dashboard. Cancellations trigger automatically calculated refund eligibility based on the time remaining before the scheduled check-in:
+                    </p>
+                    <ul class="list-disc list-inside pl-4 space-y-1 text-sm">
+                        <li><strong>14 days or more before check-in:</strong> Full cancellation permitted.</li>
+                        <li><strong>7 to 13 days before check-in:</strong> Partial cancellation permitted.</li>
+                        <li><strong>Under 7 days before check-in:</strong> Cancellation requests will not clear refunds.</li>
+                    </ul>
+                </section>
+
+                <section class="space-y-3">
+                    <h2 class="text-2xl font-bold text-primary dark:text-sky-400">3. Refund Policies</h2>
+                    <p>
+                        Eligible refunds are processed back to the original payment method within 5 to 10 business days. We do not store your credit card credentials; all financial settlements are processed via secure tokenized banking systems.
+                    </p>
+                </section>
+
+                <section class="space-y-3">
+                    <h2 class="text-2xl font-bold text-primary dark:text-sky-400">4. User Responsibilities</h2>
+                    <p>
+                        You are responsible for maintaining the confidentiality of your account credentials (password and username) and restricting unauthorized local access. You agree to ensure that all passport numbers, contact telephone values, and visa details submitted to the service are current, complete, and legally correct.
+                    </p>
+                </section>
+
+                <section class="space-y-3">
+                    <h2 class="text-2xl font-bold text-primary dark:text-sky-400">5. Liability Clauses</h2>
+                    <p>
+                        Tourism Hub acts as an booking platform and concierge provider. We maintain no liability for flight cancellations, luggage losses, weather delays, or personal injury occurring during physical travel. All disputes are governed by the local state laws where our headquarters reside.
+                    </p>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full py-xl px-lg mt-auto flex flex-col items-center gap-md bg-deep-navy dark:bg-black text-white">
+        <div class="max-w-container-max w-full flex flex-col md:flex-row justify-between items-start md:items-center gap-xl border-b border-white/10 pb-xl mb-xl">
+            <div class="flex flex-col gap-sm">
+                <span class="font-display-xl text-display-xl font-bold text-white">Tourism Hub</span>
+                <p class="text-outline-variant font-body-sm text-body-sm max-w-xs">Global tourism management platform redefining the luxury travel experience through intelligent logistics.</p>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-xl">
+                <div class="flex flex-col gap-md">
+                    <h5 class="text-white font-bold font-label-caps text-label-caps">Company</h5>
+                    <a class="text-outline-variant hover:text-ocean-gradient-start transition-colors font-body-sm text-body-sm" href="about.html">About Us</a>
+                    <a class="text-outline-variant hover:text-ocean-gradient-start transition-colors font-body-sm text-body-sm" href="contact.html">Contact</a>
+                </div>
+                <div class="flex flex-col gap-md">
+                    <h5 class="text-white font-bold font-label-caps text-label-caps">Support</h5>
+                    <a class="text-outline-variant hover:text-ocean-gradient-start transition-colors font-body-sm text-body-sm" href="contact.html#faq">FAQ</a>
+                    <a class="text-outline-variant hover:text-ocean-gradient-start transition-colors font-body-sm text-body-sm" href="contact.html">Support</a>
+                    <a class="text-outline-variant hover:text-ocean-gradient-start transition-colors font-body-sm text-body-sm" href="terms.html#cancellation">Cancellation Policy</a>
+                </div>
+                <div class="flex flex-col gap-md">
+                    <h5 class="text-white font-bold font-label-caps text-label-caps">Legal</h5>
+                    <a class="text-outline-variant hover:text-ocean-gradient-start transition-colors font-body-sm text-body-sm" href="terms.html">Terms of Service</a>
+                    <a class="text-outline-variant hover:text-ocean-gradient-start transition-colors font-body-sm text-body-sm" href="privacy.html">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+        <div class="w-full text-center">
+            <p class="text-outline-variant font-body-sm text-body-sm">© 2026 Tourism Hub SaaS. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="js/app.js"></script>
+</body>
+</html>

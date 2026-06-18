@@ -1,0 +1,36 @@
+# Java Build Artifacts
+**/target/
+**/*.class
+**/*.war
+**/*.jar
+
+# IDE Files
+**/.settings/
+**/.project
+**/.classpath
+**/.factorypath
+**/*.ipr
+**/*.iws
+**/*.iml
+**/.idea/
+**/.metadata/
+
+# Logs & Temporary files
+**/logs/
+**/*.log
+**/.gradle/
+**/build/
+
+# OS/System files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Archives
+*.zip
+*.tar.gz
+*.tgz
+
+# Custom Script exclusion
+powershell.cmd
+zip_project.ps1
